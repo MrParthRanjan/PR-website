@@ -1,0 +1,87 @@
+/* Dark Mode Styles */
+
+body.dark-mode {
+    --primary: #667eea;
+    --secondary: #764ba2;
+    --text: #e2e8f0;
+    --dark: #1a202c;
+    --light: #2d3748;
+    --border: #4a5568;
+    background-color: #1a202c;
+    color: var(--text);
+}
+
+body.dark-mode .navbar {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    border-bottom: 1px solid var(--border);
+}
+
+body.dark-mode .feature-card,
+body.dark-mode .service-card,
+body.dark-mode .info-card,
+body.dark-mode .value-card,
+body.dark-mode .contact-form-container {
+    background: var(--light);
+    color: var(--text);
+}
+
+body.dark-mode .about-stats .stat,
+body.dark-mode .our-values .value-card {
+    background: var(--light);
+}
+
+body.dark-mode .services-section {
+    background-color: #2d3748;
+}
+
+body.dark-mode .features {
+    background-color: #2d3748;
+}
+
+body.dark-mode .feature-card p,
+body.dark-mode .service-card p,
+body.dark-mode .about-text p,
+body.dark-mode .info-card p {
+    color: #cbd5e0;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group textarea {
+    background: var(--dark);
+    border-color: var(--border);
+    color: var(--text);
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+body.dark-mode .footer {
+    background: #0f1419;
+    border-top: 1px solid var(--border);
+}
+
+body.dark-mode .feature-card:hover,
+body.dark-mode .service-card:hover {
+    background: #374151;
+}
+
+body.dark-mode a {
+    color: var(--text);
+}
+
+body.dark-mode .about-text h2,
+body.dark-mode .service-card h3,
+body.dark-mode .info-card h3,
+body.dark-mode .value-card h3,
+body.dark-mode .footer-section h3,
+body.dark-mode .footer-section h4 {
+    color: #667eea;
+}
+
+body.dark-mode .dark-mode-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--text);
+}
