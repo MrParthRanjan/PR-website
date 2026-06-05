@@ -1,0 +1,18 @@
+{
+  "name": "pr-website",
+  "version": "1.0.0",
+  "description": "Professional Website - Web Development Project",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server public -p 8000",
+    "dev": "http-server public -p 8000",
+    "build": "echo 'Build script here'",
+    "test": "echo 'Tests here'"
+  },
+  "keywords": ["website", "web", "development"],
+  "author": "MrParthRanjan",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
