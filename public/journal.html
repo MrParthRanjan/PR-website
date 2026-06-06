@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Parth Ranjan's Trading Journal — Live trades, P&L, and analysis.">
+    <meta name="theme-color" content="#0a0a0f">
+    <title>Journal | Parth Ranjan</title>
+    <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0f;
+            --fg: #f5f5f5;
+            --gold: #c8a96e;
+            --green: #4eca8b;
+            --red: #e05c6a;
+            --border: #1a1a2e;
+        }
+        body.dark { --bg: #0a0a0f; --fg: #f5f5f5; }
+        body.light { --bg: #f5f5f5; --fg: #0a0a0f; --border: #e0e0e0; }
+        body { background: var(--bg); color: var(--fg); font-family: 'DM Sans', sans-serif; line-height: 1.6; transition: background 0.3s, color 0.3s; }
+        
+        nav { position: sticky; top: 0; background: rgba(10,10,15,0.8); backdrop-filter: blur(10px); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); z-index: 100; }
+        .nav-logo { font-size: 1.5rem; font-weight: bold; color: var(--gold); text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--fg); transition: color 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
+        .theme-toggle { background: none; border: none; color: var(--fg); cursor: pointer; font-size: 1.2rem; transition: transform 0.3s; }
+        .theme-toggle:hover { transform: scale(1.2); }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+        h1 { font-size: 3rem; font-family: 'Syne', sans-serif; margin-bottom: 1rem; color: var(--gold); }
+        h2 { font-size: 2rem; font-family: 'Syne', sans-serif; margin: 2rem 0 1rem; color: var(--gold); }
+        p { margin-bottom: 1rem; font-size: 1.1rem; line-height: 1.8; }
+        
+        /* Password Section */
+        .password-section { background: rgba(200,169,110,0.1); padding: 2rem; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 2rem; max-width: 500px; }
+        .password-section h3 { color: var(--gold); margin-bottom: 1rem; }
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.5rem; color: var(--fg); font-weight: bold; }
+        input { width: 100%; padding: 0.75rem; background: rgba(10,10,15,0.5); border: 1px solid var(--border); color: var(--fg); font-family: 'DM Sans', sans-serif; border-radius: 4px; transition: border-color 0.3s; }
+        input:focus { outline: none; border-color: var(--gold); }
+        button { background: var(--gold); color: var(--bg); padding: 0.75rem 2rem; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; transition: background 0.3s; font-size: 1rem; }
+        button:hover { background: #d4b896; }
+        
+        .status-msg { padding: 0.75rem; border-radius: 4px; margin-top: 1rem; display: none; }
+        .status-msg.success { background: rgba(78,202,139,0.2); color: var(--green); border: 1px solid var(--green); display: block; }
+        .status-msg.error { background: rgba(224,92,106,0.2); color: var(--red); border: 1px solid var(--red); display: block; }
+        
+        /* Journal Content (Hidden by default) */
+        .journal-content { display: none; }
+        .journal-content.unlocked { display: block; }
+        
+        /* Trade Cards */
+        .trades-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .trade-card { background: rgba(200,169,110,0.05); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; transition: transform 0.3s, border-color 0.3s; }
+        .trade-card:hover { transform: translateY(-5px); border-color: var(--gold); }
+        .trade-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .trade-pair { font-size: 1.3rem; font-weight: bold; color: var(--gold); font-family: 'JetBrains Mono', monospace; }
+        .trade-status { padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.9rem; font-weight: bold; }
+        .trade-status.win { background: rgba(78,202,139,0.2); color: var(--green); }
+        .trade-status.loss { background: rgba(224,92,106,0.2); color: var(--red); }
+        
+        .trade-detail { display: flex; justify-content: space-between; margin: 0.75rem 0; font-size: 0.95rem; }
+        .trade-label { color: #999; }
+        .trade-value { color: var(--fg); font-family: 'JetBrains Mono', monospace; font-weight: bold; }
+        
+        /* Stats Dashboard */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .stat-box { background: rgba(200,169,110,0.05); padding: 1.5rem; border: 1px solid var(--border); border-radius: 4px; text-align: center; }
+        .stat-value { font-size: 2rem; color: var(--gold); font-weight: bold; font-family: 'JetBrains Mono', monospace; }
+        .stat-label { font-size: 0.9rem; color: #999; margin-top: 0.5rem; }
+        
+        footer { background: rgba(10,10,15,0.5); padding: 2rem; text-align: center; border-top: 1px solid var(--border); color: #666; margin-top: 4rem; }
+        footer a { color: var(--gold); text-decoration: none; }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .container { padding: 2rem 1rem; }
+            .nav-links { gap: 1rem; font-size: 0.9rem; }
+            .trades-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="dark">
+    <nav>
+        <a href="index.html" class="nav-logo">PR</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="journal.html" style="color: var(--gold);">Journal</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle">🌙</button>
+    </nav>
+
+    <div class="container">
+        <h1>Trading Journal</h1>
+        <p style="font-size: 1.2rem; color: var(--gold); margin-bottom: 2rem;">Live trades, P&L, and analysis — password protected.</p>
+
+        <!-- Password Setup/Unlock Section -->
+        <div class="password-section" id="passwordSection">
+            <h3>🔐 Secure Access</h3>
+            <div id="setupMode">
+                <p style="margin-bottom: 1rem; font-size: 0.95rem;">First time? Set a password to access your journal.</p>
+                <div class="form-group">
+                    <label for="setupPassword">Create Password</label>
+                    <input type="password" id="setupPassword" placeholder="Enter password (min 6 chars)">
+                </div>
+                <button onclick="setupPassword()">Set Password</button>
+                <div class="status-msg" id="setupStatus"></div>
+            </div>
+            
+            <div id="unlockMode" style="display: none;">
+                <p style="margin-bottom: 1rem; font-size: 0.95rem;">Enter password to view journal.</p>
+                <div class="form-group">
+                    <label for="unlockPassword">Password</label>
+                    <input type="password" id="unlockPassword" placeholder="Enter password">
+                </div>
+                <button onclick="unlockJournal()">Unlock Journal</button>
+                <div class="status-msg" id="unlockStatus"></div>
+                <button onclick="resetPassword()" style="background: var(--red); margin-top: 1rem; width: 100%;">Reset Password</button>
+            </div>
+        </div>
+
+        <!-- Journal Content (Locked) -->
+        <div class="journal-content" id="journalContent">
+            <button onclick="logout()" style="background: var(--red); margin-bottom: 2rem;">🔓 Logout</button>
+
+            <h2>Performance Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">Total Trades</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">16</div>
+                    <div class="stat-label">Winning Trades</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">66.7%</div>
+                    <div class="stat-label">Win Rate</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">+42.5R</div>
+                    <div class="stat-label">Total Profit</div>
+                </div>
+            </div>
+
+            <h2>Recent Trades (Live & Demo)</h2>
+            <div class="trades-grid">
+                <!-- Trade 1 -->
+                <div class="trade-card">
+                    <div class="trade-header">
+                        <div class="trade-pair">XAU/USD</div>
+                        <div class="trade-status win">+2.4R WIN</div>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Entry:</span>
+                        <span class="trade-value">2,515.30</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Exit:</span>
+                        <span class="trade-value">2,523.50</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Risk:</span>
+                        <span class="trade-value">$100</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Profit:</span>
+                        <span class="trade-value" style="color: var(--green);">+$240</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Time:</span>
+                        <span class="trade-value">45 min</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Setup:</span>
+                        <span class="trade-value">Structure Break</span>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #999;">Broke above resistance + FVG fill. Clean entry on retest.</p>
+                </div>
+
+                <!-- Trade 2 -->
+                <div class="trade-card">
+                    <div class="trade-header">
+                        <div class="trade-pair">EUR/USD</div>
+                        <div class="trade-status loss">-1.0R LOSS</div>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Entry:</span>
+                        <span class="trade-value">1.0975</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Exit:</span>
+                        <span class="trade-value">1.0955</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Risk:</span>
+                        <span class="trade-value">$100</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Loss:</span>
+                        <span class="trade-value" style="color: var(--red);">-$100</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Time:</span>
+                        <span class="trade-value">2h 15m</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Setup:</span>
+                        <span class="trade-value">Range Break (Failed)</span>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #999;">Broke range but reversed on higher TF resistance. Exited on stop loss — correct execution.</p>
+                </div>
+
+                <!-- Trade 3 -->
+                <div class="trade-card">
+                    <div class="trade-header">
+                        <div class="trade-pair">BTC/USD</div>
+                        <div class="trade-status win">+1.8R WIN</div>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Entry:</span>
+                        <span class="trade-value">67,420</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Exit:</span>
+                        <span class="trade-value">68,640</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Risk:</span>
+                        <span class="trade-value">$200</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Profit:</span>
+                        <span class="trade-value" style="color: var(--green);">+$360</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Time:</span>
+                        <span class="trade-value">1h 30m</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Setup:</span>
+                        <span class="trade-value">Order Block Bounce</span>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #999;">Bounced from OB, trail stop to breakeven at +0.5R, exited at resistance.</p>
+                </div>
+            </div>
+
+            <h2>Trading Rules (Non-Negotiable)</h2>
+            <p>✓ Max 1% risk per trade | ✓ Never add to losing trades | ✓ RRR minimum 1:1.5 | ✓ Exit on stop loss — no exceptions | ✓ Trade London or NY session only | ✓ Journal every single trade</p>
+
+            <h2>This Month's Focus</h2>
+            <p><strong>Discipline over Profit.</strong> Not chasing size. Focused on: consistency, risk management, and structure identification. Quality > Quantity.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Parth Ranjan. All rights reserved.</p>
+        <p><a href="index.html">Back to Home</a></p>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        body.classList.add(savedTheme);
+        themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        themeToggle.addEventListener('click', () => {
+            const newTheme = body.classList.contains('dark') ? 'light' : 'dark';
+            body.classList.remove('dark', 'light');
+            body.classList.add(newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Journal Password Logic
+        function initializeJournal() {
+            const storedHash = localStorage.getItem('journalPasswordHash');
+            const isUnlocked = sessionStorage.getItem('journalUnlocked') === 'true';
+            
+            if (storedHash) {
+                document.getElementById('setupMode').style.display = 'none';
+                document.getElementById('unlockMode').style.display = 'block';
+            }
+            
+            if (isUnlocked) {
+                unlockUI();
+            }
+        }
+
+        async function setupPassword() {
+            const password = document.getElementById('setupPassword').value;
+            const statusDiv = document.getElementById('setupStatus');
+            
+            if (password.length < 6) {
+                statusDiv.textContent = '❌ Password must be at least 6 characters';
+                statusDiv.className = 'status-msg error';
+                return;
+            }
+            
+            try {
+                const hash = await bcrypt.hash(password, 10);
+                localStorage.setItem('journalPasswordHash', hash);
+                statusDiv.textContent = '✓ Password set! Refresh page to unlock.';
+                statusDiv.className = 'status-msg success';
+                
+                setTimeout(() => {
+                    document.getElementById('setupMode').style.display = 'none';
+                    document.getElementById('unlockMode').style.display = 'block';
+                }, 1500);
+            } catch (err) {
+                statusDiv.textContent = '❌ Error setting password. Try again.';
+                statusDiv.className = 'status-msg error';
+            }
+        }
+
+        async function unlockJournal() {
+            const password = document.getElementById('unlockPassword').value;
+            const hash = localStorage.getItem('journalPasswordHash');
+            const statusDiv = document.getElementById('unlockStatus');
+            
+            if (!password) {
+                statusDiv.textContent = '❌ Enter password';
+                statusDiv.className = 'status-msg error';
+                return;
+            }
+            
+            try {
+                const isMatch = await bcrypt.compare(password, hash);
+                if (isMatch) {
+                    sessionStorage.setItem('journalUnlocked', 'true');
+                    statusDiv.textContent = '✓ Access granted!';
+                    statusDiv.className = 'status-msg success';
+                    setTimeout(() => unlockUI(), 500);
+                } else {
+                    statusDiv.textContent = '❌ Incorrect password';
+                    statusDiv.className = 'status-msg error';
+                }
+            } catch (err) {
+                statusDiv.textContent = '❌ Error verifying password';
+                statusDiv.className = 'status-msg error';
+            }
+        }
+
+        function unlockUI() {
+            document.getElementById('passwordSection').style.display = 'none';
+            document.getElementById('journalContent').classList.add('unlocked');
+        }
+
+        function logout() {
+            sessionStorage.removeItem('journalUnlocked');
+            document.getElementById('journalContent').classList.remove('unlocked');
+            document.getElementById('passwordSection').style.display = 'block';
+            document.getElementById('unlockPassword').value = '';
+        }
+
+        function resetPassword() {
+            if (confirm('Reset password? You\'ll need to create a new one.')) {
+                localStorage.removeItem('journalPasswordHash');
+                logout();
+                document.getElementById('setupMode').style.display = 'block';
+                document.getElementById('unlockMode').style.display = 'none';
+                document.getElementById('setupPassword').value = '';
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', initializeJournal);
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Parth Ranjan's Trading Journal — Live trades, P&L, and analysis.">
+    <meta name="theme-color" content="#0a0a0f">
+    <title>Journal | Parth Ranjan</title>
+    <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0f;
+            --fg: #f5f5f5;
+            --gold: #c8a96e;
+            --green: #4eca8b;
+            --red: #e05c6a;
+            --border: #1a1a2e;
+        }
+        body.dark { --bg: #0a0a0f; --fg: #f5f5f5; }
+        body.light { --bg: #f5f5f5; --fg: #0a0a0f; --border: #e0e0e0; }
+        body { background: var(--bg); color: var(--fg); font-family: 'DM Sans', sans-serif; line-height: 1.6; transition: background 0.3s, color 0.3s; }
+        
+        nav { position: sticky; top: 0; background: rgba(10,10,15,0.8); backdrop-filter: blur(10px); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); z-index: 100; }
+        .nav-logo { font-size: 1.5rem; font-weight: bold; color: var(--gold); text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--fg); transition: color 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
+        .theme-toggle { background: none; border: none; color: var(--fg); cursor: pointer; font-size: 1.2rem; transition: transform 0.3s; }
+        .theme-toggle:hover { transform: scale(1.2); }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+        h1 { font-size: 3rem; font-family: 'Syne', sans-serif; margin-bottom: 1rem; color: var(--gold); }
+        h2 { font-size: 2rem; font-family: 'Syne', sans-serif; margin: 2rem 0 1rem; color: var(--gold); }
+        p { margin-bottom: 1rem; font-size: 1.1rem; line-height: 1.8; }
+        
+        /* Password Section */
+        .password-section { background: rgba(200,169,110,0.1); padding: 2rem; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 2rem; max-width: 500px; }
+        .password-section h3 { color: var(--gold); margin-bottom: 1rem; }
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.5rem; color: var(--fg); font-weight: bold; }
+        input { width: 100%; padding: 0.75rem; background: rgba(10,10,15,0.5); border: 1px solid var(--border); color: var(--fg); font-family: 'DM Sans', sans-serif; border-radius: 4px; transition: border-color 0.3s; }
+        input:focus { outline: none; border-color: var(--gold); }
+        button { background: var(--gold); color: var(--bg); padding: 0.75rem 2rem; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; transition: background 0.3s; font-size: 1rem; }
+        button:hover { background: #d4b896; }
+        
+        .status-msg { padding: 0.75rem; border-radius: 4px; margin-top: 1rem; display: none; }
+        .status-msg.success { background: rgba(78,202,139,0.2); color: var(--green); border: 1px solid var(--green); display: block; }
+        .status-msg.error { background: rgba(224,92,106,0.2); color: var(--red); border: 1px solid var(--red); display: block; }
+        
+        /* Journal Content (Hidden by default) */
+        .journal-content { display: none; }
+        .journal-content.unlocked { display: block; }
+        
+        /* Trade Cards */
+        .trades-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .trade-card { background: rgba(200,169,110,0.05); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; transition: transform 0.3s, border-color 0.3s; }
+        .trade-card:hover { transform: translateY(-5px); border-color: var(--gold); }
+        .trade-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .trade-pair { font-size: 1.3rem; font-weight: bold; color: var(--gold); font-family: 'JetBrains Mono', monospace; }
+        .trade-status { padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.9rem; font-weight: bold; }
+        .trade-status.win { background: rgba(78,202,139,0.2); color: var(--green); }
+        .trade-status.loss { background: rgba(224,92,106,0.2); color: var(--red); }
+        
+        .trade-detail { display: flex; justify-content: space-between; margin: 0.75rem 0; font-size: 0.95rem; }
+        .trade-label { color: #999; }
+        .trade-value { color: var(--fg); font-family: 'JetBrains Mono', monospace; font-weight: bold; }
+        
+        /* Stats Dashboard */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .stat-box { background: rgba(200,169,110,0.05); padding: 1.5rem; border: 1px solid var(--border); border-radius: 4px; text-align: center; }
+        .stat-value { font-size: 2rem; color: var(--gold); font-weight: bold; font-family: 'JetBrains Mono', monospace; }
+        .stat-label { font-size: 0.9rem; color: #999; margin-top: 0.5rem; }
+        
+        footer { background: rgba(10,10,15,0.5); padding: 2rem; text-align: center; border-top: 1px solid var(--border); color: #666; margin-top: 4rem; }
+        footer a { color: var(--gold); text-decoration: none; }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .container { padding: 2rem 1rem; }
+            .nav-links { gap: 1rem; font-size: 0.9rem; }
+            .trades-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="dark">
+    <nav>
+        <a href="index.html" class="nav-logo">PR</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="journal.html" style="color: var(--gold);">Journal</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle">🌙</button>
+    </nav>
+
+    <div class="container">
+        <h1>Trading Journal</h1>
+        <p style="font-size: 1.2rem; color: var(--gold); margin-bottom: 2rem;">Live trades, P&L, and analysis — password protected.</p>
+
+        <!-- Password Setup/Unlock Section -->
+        <div class="password-section" id="passwordSection">
+            <h3>🔐 Secure Access</h3>
+            <div id="setupMode">
+                <p style="margin-bottom: 1rem; font-size: 0.95rem;">First time? Set a password to access your journal.</p>
+                <div class="form-group">
+                    <label for="setupPassword">Create Password</label>
+                    <input type="password" id="setupPassword" placeholder="Enter password (min 6 chars)">
+                </div>
+                <button onclick="setupPassword()">Set Password</button>
+                <div class="status-msg" id="setupStatus"></div>
+            </div>
+            
+            <div id="unlockMode" style="display: none;">
+                <p style="margin-bottom: 1rem; font-size: 0.95rem;">Enter password to view journal.</p>
+                <div class="form-group">
+                    <label for="unlockPassword">Password</label>
+                    <input type="password" id="unlockPassword" placeholder="Enter password">
+                </div>
+                <button onclick="unlockJournal()">Unlock Journal</button>
+                <div class="status-msg" id="unlockStatus"></div>
+                <button onclick="resetPassword()" style="background: var(--red); margin-top: 1rem; width: 100%;">Reset Password</button>
+            </div>
+        </div>
+
+        <!-- Journal Content (Locked) -->
+        <div class="journal-content" id="journalContent">
+            <button onclick="logout()" style="background: var(--red); margin-bottom: 2rem;">🔓 Logout</button>
+
+            <h2>Performance Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">Total Trades</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">16</div>
+                    <div class="stat-label">Winning Trades</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">66.7%</div>
+                    <div class="stat-label">Win Rate</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">+42.5R</div>
+                    <div class="stat-label">Total Profit</div>
+                </div>
+            </div>
+
+            <h2>Recent Trades (Live & Demo)</h2>
+            <div class="trades-grid">
+                <!-- Trade 1 -->
+                <div class="trade-card">
+                    <div class="trade-header">
+                        <div class="trade-pair">XAU/USD</div>
+                        <div class="trade-status win">+2.4R WIN</div>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Entry:</span>
+                        <span class="trade-value">2,515.30</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Exit:</span>
+                        <span class="trade-value">2,523.50</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Risk:</span>
+                        <span class="trade-value">$100</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Profit:</span>
+                        <span class="trade-value" style="color: var(--green);">+$240</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Time:</span>
+                        <span class="trade-value">45 min</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Setup:</span>
+                        <span class="trade-value">Structure Break</span>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #999;">Broke above resistance + FVG fill. Clean entry on retest.</p>
+                </div>
+
+                <!-- Trade 2 -->
+                <div class="trade-card">
+                    <div class="trade-header">
+                        <div class="trade-pair">EUR/USD</div>
+                        <div class="trade-status loss">-1.0R LOSS</div>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Entry:</span>
+                        <span class="trade-value">1.0975</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Exit:</span>
+                        <span class="trade-value">1.0955</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Risk:</span>
+                        <span class="trade-value">$100</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Loss:</span>
+                        <span class="trade-value" style="color: var(--red);">-$100</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Time:</span>
+                        <span class="trade-value">2h 15m</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Setup:</span>
+                        <span class="trade-value">Range Break (Failed)</span>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #999;">Broke range but reversed on higher TF resistance. Exited on stop loss — correct execution.</p>
+                </div>
+
+                <!-- Trade 3 -->
+                <div class="trade-card">
+                    <div class="trade-header">
+                        <div class="trade-pair">BTC/USD</div>
+                        <div class="trade-status win">+1.8R WIN</div>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Entry:</span>
+                        <span class="trade-value">67,420</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Exit:</span>
+                        <span class="trade-value">68,640</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Risk:</span>
+                        <span class="trade-value">$200</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Profit:</span>
+                        <span class="trade-value" style="color: var(--green);">+$360</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Time:</span>
+                        <span class="trade-value">1h 30m</span>
+                    </div>
+                    <div class="trade-detail">
+                        <span class="trade-label">Setup:</span>
+                        <span class="trade-value">Order Block Bounce</span>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #999;">Bounced from OB, trail stop to breakeven at +0.5R, exited at resistance.</p>
+                </div>
+            </div>
+
+            <h2>Trading Rules (Non-Negotiable)</h2>
+            <p>✓ Max 1% risk per trade | ✓ Never add to losing trades | ✓ RRR minimum 1:1.5 | ✓ Exit on stop loss — no exceptions | ✓ Trade London or NY session only | ✓ Journal every single trade</p>
+
+            <h2>This Month's Focus</h2>
+            <p><strong>Discipline over Profit.</strong> Not chasing size. Focused on: consistency, risk management, and structure identification. Quality > Quantity.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Parth Ranjan. All rights reserved.</p>
+        <p><a href="index.html">Back to Home</a></p>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        body.classList.add(savedTheme);
+        themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        themeToggle.addEventListener('click', () => {
+            const newTheme = body.classList.contains('dark') ? 'light' : 'dark';
+            body.classList.remove('dark', 'light');
+            body.classList.add(newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Journal Password Logic
+        function initializeJournal() {
+            const storedHash = localStorage.getItem('journalPasswordHash');
+            const isUnlocked = sessionStorage.getItem('journalUnlocked') === 'true';
+            
+            if (storedHash) {
+                document.getElementById('setupMode').style.display = 'none';
+                document.getElementById('unlockMode').style.display = 'block';
+            }
+            
+            if (isUnlocked) {
+                unlockUI();
+            }
+        }
+
+        async function setupPassword() {
+            const password = document.getElementById('setupPassword').value;
+            const statusDiv = document.getElementById('setupStatus');
+            
+            if (password.length < 6) {
+                statusDiv.textContent = '❌ Password must be at least 6 characters';
+                statusDiv.className = 'status-msg error';
+                return;
+            }
+            
+            try {
+                const hash = await bcrypt.hash(password, 10);
+                localStorage.setItem('journalPasswordHash', hash);
+                statusDiv.textContent = '✓ Password set! Refresh page to unlock.';
+                statusDiv.className = 'status-msg success';
+                
+                setTimeout(() => {
+                    document.getElementById('setupMode').style.display = 'none';
+                    document.getElementById('unlockMode').style.display = 'block';
+                }, 1500);
+            } catch (err) {
+                statusDiv.textContent = '❌ Error setting password. Try again.';
+                statusDiv.className = 'status-msg error';
+            }
+        }
+
+        async function unlockJournal() {
+            const password = document.getElementById('unlockPassword').value;
+            const hash = localStorage.getItem('journalPasswordHash');
+            const statusDiv = document.getElementById('unlockStatus');
+            
+            if (!password) {
+                statusDiv.textContent = '❌ Enter password';
+                statusDiv.className = 'status-msg error';
+                return;
+            }
+            
+            try {
+                const isMatch = await bcrypt.compare(password, hash);
+                if (isMatch) {
+                    sessionStorage.setItem('journalUnlocked', 'true');
+                    statusDiv.textContent = '✓ Access granted!';
+                    statusDiv.className = 'status-msg success';
+                    setTimeout(() => unlockUI(), 500);
+                } else {
+                    statusDiv.textContent = '❌ Incorrect password';
+                    statusDiv.className = 'status-msg error';
+                }
+            } catch (err) {
+                statusDiv.textContent = '❌ Error verifying password';
+                statusDiv.className = 'status-msg error';
+            }
+        }
+
+        function unlockUI() {
+            document.getElementById('passwordSection').style.display = 'none';
+            document.getElementById('journalContent').classList.add('unlocked');
+        }
+
+        function logout() {
+            sessionStorage.removeItem('journalUnlocked');
+            document.getElementById('journalContent').classList.remove('unlocked');
+            document.getElementById('passwordSection').style.display = 'block';
+            document.getElementById('unlockPassword').value = '';
+        }
+
+        function resetPassword() {
+            if (confirm('Reset password? You\'ll need to create a new one.')) {
+                localStorage.removeItem('journalPasswordHash');
+                logout();
+                document.getElementById('setupMode').style.display = 'block';
+                document.getElementById('unlockMode').style.display = 'none';
+                document.getElementById('setupPassword').value = '';
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', initializeJournal);
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Parth Ranjan's Trading Journal — Live trades, P&L, and analysis.">
+    <meta name="theme-color" content="#0a0a0f">
+    <title>Journal | Parth Ranjan</title>
+    <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0f;
+            --fg: #f5f5f5;
+            --gold: #c8a96e;
+            --green: #4eca8b;
+            --red: #e05c6a;
+            --border: #1a1a2e;
+        }
+        body.dark { --bg: #0a0a0f; --fg: #f5f5f5; }
+        body.light { --bg: #f5f5f5; --fg: #0a0a0f; --border: #e0e0e0; }
+        body { background: var(--bg); color: var(--fg); font-family: 'DM Sans', sans-serif; line-height: 1.6; transition: background 0.3s, color 0.3s; }
+        
+        nav { position: sticky; top: 0; background: rgba(10,10,15,0.8); backdrop-filter: blur(10px); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); z-index: 100; }
+        .nav-logo { font-size: 1.5rem; font-weight: bold; color: var(--gold); text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--fg); transition: color 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
+        .theme-toggle { background: none; border: none; color: var(--fg); cursor: pointer; font-size: 1.2rem; transition: transform 0.3s; }
+        .theme-toggle:hover { transform: scale(1.2); }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+        h1 { font-size: 3rem; font-family: 'Syne', sans-serif; margin-bottom: 1rem; color: var(--gold); }
+        h2 { font-size: 2rem; font-family: 'Syne', sans-serif; margin: 2rem 0 1rem; color: var(--gold); }
+        p { margin-bottom: 1rem; font-size: 1.1rem; line-height: 1.8; }
+        
+        /* Password Section */
+        .password-section { background: rgba(200,169,110,0.1); padding: 2rem; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 2rem; max-width: 500px; }
+        .password-section h3 { color: var(--gold); margin-bottom: 1rem; }
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.5rem; color: var(--fg); font-weight: bold; }
+        input { width: 100%; padding: 0.75rem; background: rgba(10,10,15,0.5); border: 1px solid var(--border); color: var(--fg); font-family: 'DM Sans', sans-serif; border-radius: 4px; transition: border-color 0.3s; }
+        input:focus { outline: none; border-color: var(--gold); }
+        button { background: var(--gold); color: var(--bg); padding: 0.75rem 2rem; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; transition: background 0.3s; font-size: 1rem; }
+        button:hover { background: #d4b896; }
+        
+        .status-msg { padding: 0.75rem; border-radius: 4px; margin-top: 1rem; display: none; }
+        .status-msg.success { background: rgba(78,202,139,0.2); color: var(--green); border: 1px solid var(--green); display: block; }
+        .status-msg.error { background: rgba(224,92,106,0.2); color: var(--red); border: 1px solid var(--red); display: block; }
+        
+        /* Journal Content (Hidden by default) */
+        .journal-content { display: none; }
+        .journal-content.unlocked { display: block; }
+        
+        /* Trade Cards */
+        .trades-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .trade-card { background: rgba(200,169,110,0.05); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; transition: transform 0.3s, border-color 0.3s; }
+        .trade-card:hover { transform: translateY(-5px); border-color: var(--gold); }
+        .trade-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .trade-pair { font-size: 1.3rem; font-weight: bold; color: var(--gold); font-family: 'JetBrains Mono', monospace; }
+        .trade-status { padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.9rem; font-weight: bold; }
+        .trade-status.win { background: rgba(78,202,139,0.2); color: var(--green); }
+        .trade-status.loss { background: rgba(224,92,106,0.2); color: var(--red); }
+        
+        .trade-detail { display: flex; justify-content: space-between; margin: 0.75rem 0; font-size: 0.95rem; }
+        .trade-label { color: #999; }
+        .trade-value { color: var(--fg); font-family: 'JetBrains Mono', monospace; font-weight: bold; }
+        
+        /* Stats Dashboard */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .stat-box { background: rgba(200,169,110,0.05); padding: 1.5rem; border: 1px solid var(--border); border-radius: 4px; text-align: center; }
+        .stat-value { font-size: 2rem; color: var(--gold); font-weight: bold; font-family: 'JetBrains Mono', monospace; }
+        .stat-label { font-size: 0.9rem; color: #999; margin-top: 0.5rem; }
+        
+        footer { background: rgba(10,10,15,0.5); padding: 2rem; text-align: center; border-top: 1px solid var(--border); color: #666; margin-top: 4rem; }
+        footer a { color: var(--gold); text-decoration: none; }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .container { padding: 2rem 1rem; }
+            .nav-links { gap: 1rem; font-size: 0.9rem; }
+            .trades-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="dark">
+    <nav>
+        <a href="index.htm
