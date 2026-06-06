@@ -1,12 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Contact Parth Ranjan — Questions, collaboration, or feedback about trading.">
     <meta name="theme-color" content="#0a0a0f">
     <title>Contact | Parth Ranjan</title>
-    <style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><polygon points="16,2 30,26 2,26" stroke="#c8a96e" stroke-width="1.5" fill="none"/><line x1="16" y1="10" x2="16" y2="22" stroke="#c8a96e" stroke-width="1"/><line x1="10" y1="22" x2="22" y2="22" stroke="#c8a96e" stroke-width="1"/></svg>
+      <span class="logo-text">PR</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="index.html#markets" class="nav-link">Markets</a></li>
+      <li><a href="index.html#brokers" class="nav-link">Brokers</a></li>
+      <li><a href="journal.html" class="nav-link">Journal</a></li>
+      <li><a href="contact.html" class="nav-link active">Contact</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle"><span class="theme-icon">◐</span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <div class="container">
+    <span class="section-tag">CONNECT</span>
+    <h1>Get in Touch</h1>
+    <p class="page-subtitle">Questions? Collaboration? Let's talk.</p>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>Direct Chat</h3>
+        <p>Prefer real-time conversation? Connect on Telegram or WhatsApp.</p>
+        <div class="socials">
+          <a href="https://t.me/ranjanparth" target="_blank" class="social-link">Telegram</a>
+          <a href="https://wa.me/917667563276" target="_blank" class="social-link">WhatsApp</a>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <h3>Communities</h3>
+        <p>Join our trading community on Discord to discuss strategies and share insights.</p>
+        <div class="socials">
+          <a href="https://discord.gg/W9f7MzQZhb" target="_blank" class="social-link">Discord</a>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <h3>Email</h3>
+        <p>For formal inquiries, reach out via email. I respond within 24 hours.</p>
+        <div class="socials">
+          <a href="mailto:parthranjan2025@gmail.com" class="social-link">Email</a>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <h3>Collaboration</h3>
+        <p>Interested in partnership, sponsorship, or content collaboration?</p>
+        <p style="font-size: 0.9rem; color: var(--text-3); margin-top: 12px;">Use the form below or reach out directly on Telegram.</p>
+      </div>
+    </div>
+
+    <h2>Send a Message</h2>
+    <form id="contactForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" placeholder="What is this about?" required>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Your message..." required></textarea>
+      </div>
+
+      <button type="submit" class="btn">Send Message</button>
+      <div id="formStatus" class="form-status"></div>
+    </form>
+
+    <div class="info-card">
+      <h3>Quick Response</h3>
+      <p><strong>Telegram/WhatsApp:</strong> Usually reply within minutes during trading hours.</p>
+      <p><strong>Email:</strong> Within 24 hours.</p>
+      <p><strong>Discord:</strong> Join the community for instant answers from the group.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><polygon points="16,2 30,26 2,26" stroke="#c8a96e" stroke-width="1.5" fill="none"/><line x1="16" y1="10" x2="16" y2="22" stroke="#c8a96e" stroke-width="1"/><line x1="10" y1="22" x2="22" y2="22" stroke="#c8a96e" stroke-width="1"/></svg>
+        Parth Ranjan
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#markets">Markets</a>
+        <a href="index.html#brokers">Brokers</a>
+        <a href="journal.html">Journal</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="footer-note">
+        <p>Trading requires discipline, risk management, and a systematic approach. Past performance is not indicative of future results. Trade only with capital you can afford to lose.</p>
+        <p class="footer-copy">&copy; 2026 Parth Ranjan. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="js/dark-mode.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Smooth nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  });
+</script>
+</body>
+</html>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --bg: #0a0a0f;

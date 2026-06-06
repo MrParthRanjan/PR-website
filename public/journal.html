@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,146 +7,136 @@
     <meta name="theme-color" content="#0a0a0f">
     <title>Journal | Parth Ranjan</title>
     <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/pages.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg: #0a0a0f;
-            --fg: #f5f5f5;
-            --gold: #c8a96e;
-            --green: #4eca8b;
-            --red: #e05c6a;
-            --border: #1a1a2e;
-        }
-        body.dark { --bg: #0a0a0f; --fg: #f5f5f5; }
-        body.light { --bg: #f5f5f5; --fg: #0a0a0f; --border: #e0e0e0; }
-        body { background: var(--bg); color: var(--fg); font-family: var(--font-body); line-height: 1.6; transition: background 0.3s, color 0.3s; }
-        
-        nav { position: sticky; top: 0; background: rgba(10,10,15,0.8); backdrop-filter: blur(10px); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); z-index: 100; }
-        .nav-logo { font-size: 1.5rem; font-weight: bold; color: var(--gold); text-decoration: none; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--fg); transition: color 0.3s; }
-        .nav-links a:hover { color: var(--gold); }
-        .theme-toggle { background: none; border: none; color: var(--fg); cursor: pointer; font-size: 1.2rem; transition: transform 0.3s; }
-        .theme-toggle:hover { transform: scale(1.2); }
-        
-        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
-        h1 { font-size: 3rem; font-family: var(--font-display); margin-bottom: 1rem; color: var(--gold); }
-        h2 { font-size: 2rem; font-family: 'Syne', sans-serif; margin: 2rem 0 1rem; color: var(--gold); }
-        p { margin-bottom: 1rem; font-size: 1.1rem; line-height: 1.8; }
-        
         /* Password Section */
-        .password-section { background: rgba(200,169,110,0.1); padding: 2rem; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 2rem; max-width: 500px; }
-        .password-section h3 { color: var(--gold); margin-bottom: 1rem; }
-        .form-group { margin-bottom: 1rem; }
-        label { display: block; margin-bottom: 0.5rem; color: var(--fg); font-weight: bold; }
-        input { width: 100%; padding: 0.75rem; background: rgba(10,10,15,0.5); border: 1px solid var(--border); color: var(--fg); font-family: 'DM Sans', sans-serif; border-radius: 4px; transition: border-color 0.3s; }
-        input:focus { outline: none; border-color: var(--gold); }
-        button { background: var(--gold); color: var(--bg); padding: 0.75rem 2rem; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; transition: background 0.3s; font-size: 1rem; }
-        button:hover { background: #d4b896; }
+        .password-section { background: var(--surface); border: 1px solid var(--border-2); border-radius: var(--radius-lg); padding: 32px; margin-bottom: 32px; max-width: 500px; }
+        .password-section h3 { color: var(--gold); margin-bottom: 16px; font-size: 1.2rem; }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: .9rem; font-family: var(--font-mono); letter-spacing: .05em; text-transform: uppercase; }
+        input { width: 100%; padding: 12px 16px; background: var(--bg-3); border: 1px solid var(--border-2); color: var(--text); font-family: var(--font-body); border-radius: var(--radius); font-size: 1rem; transition: all var(--transition); }
+        input::placeholder { color: var(--text-3); }
+        input:focus { outline: none; border-color: var(--gold); background: var(--bg-2); box-shadow: 0 0 0 3px rgba(200,169,110,0.1); }
         
-        .status-msg { padding: 0.75rem; border-radius: 4px; margin-top: 1rem; display: none; }
-        .status-msg.success { background: rgba(78,202,139,0.2); color: var(--green); border: 1px solid var(--green); display: block; }
-        .status-msg.error { background: rgba(224,92,106,0.2); color: var(--red); border: 1px solid var(--red); display: block; }
+        button { background: var(--gold); color: var(--bg); padding: 14px 28px; border: none; border-radius: var(--radius); font-weight: 600; cursor: pointer; transition: all var(--transition); font-size: 1rem; font-family: var(--font-mono); letter-spacing: .1em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px; }
+        button:hover { background: var(--gold-light); transform: translateY(-2px); }
+        
+        .status-msg { padding: 16px; border-radius: var(--radius); margin-top: 16px; display: none; font-size: .95rem; border: 1px solid transparent; }
+        .status-msg.success { background: rgba(78,202,139,0.15); color: var(--green); border-color: var(--green-dim); display: block; }
+        .status-msg.error { background: rgba(224,92,106,0.15); color: var(--red); border-color: var(--red-dim); display: block; }
         
         /* Journal Content (Hidden by default) */
         .journal-content { display: none; }
         .journal-content.unlocked { display: block; }
         
         /* Trade Cards */
-        .trades-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin: 2rem 0; }
-        .trade-card { background: rgba(200,169,110,0.05); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; transition: transform 0.3s, border-color 0.3s; }
-        .trade-card:hover { transform: translateY(-5px); border-color: var(--gold); }
-        .trade-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-        .trade-pair { font-size: 1.3rem; font-weight: bold; color: var(--gold); font-family: 'JetBrains Mono', monospace; }
-        .trade-status { padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.9rem; font-weight: bold; }
-        .trade-status.win { background: rgba(78,202,139,0.2); color: var(--green); }
-        .trade-status.loss { background: rgba(224,92,106,0.2); color: var(--red); }
+        .trades-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin: 32px 0; }
+        .trade-card { background: var(--surface); border: 1px solid var(--border-2); border-radius: var(--radius-lg); padding: 24px; transition: all var(--transition); }
+        .trade-card:hover { border-color: var(--gold-dim); transform: translateY(-4px); background: var(--surface-2); }
+        .trade-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .trade-pair { font-size: 1.3rem; font-weight: 700; color: var(--gold); font-family: var(--font-mono); }
+        .trade-status { padding: 4px 12px; border-radius: 6px; font-size: .85rem; font-weight: 600; }
+        .trade-status.win { color: var(--green); background: var(--green-dim); }
+        .trade-status.loss { color: var(--red); background: var(--red-dim); }
         
-        .trade-detail { display: flex; justify-content: space-between; margin: 0.75rem 0; font-size: 0.95rem; }
-        .trade-label { color: #999; }
-        .trade-value { color: var(--fg); font-family: 'JetBrains Mono', monospace; font-weight: bold; }
+        .trade-detail { display: flex; justify-content: space-between; margin: 12px 0; font-size: .95rem; }
+        .trade-label { color: var(--text-3); font-family: var(--font-mono); font-size: .85rem; letter-spacing: .05em; }
+        .trade-value { color: var(--text); font-family: var(--font-mono); font-weight: 600; }
         
         /* Stats Dashboard */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
-        .stat-box { background: rgba(200,169,110,0.05); padding: 1.5rem; border: 1px solid var(--border); border-radius: 4px; text-align: center; }
-        .stat-value { font-size: 2rem; color: var(--gold); font-weight: bold; font-family: 'JetBrains Mono', monospace; }
-        .stat-label { font-size: 0.9rem; color: #999; margin-top: 0.5rem; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 32px 0; }
+        .stat-box { background: var(--surface); border: 1px solid var(--border-2); border-radius: var(--radius-lg); padding: 24px; text-align: center; transition: all var(--transition); }
+        .stat-box:hover { border-color: var(--gold-dim); background: var(--surface-2); }
+        .stat-value { font-size: 2.4rem; color: var(--gold); font-weight: 800; font-family: var(--font-display); line-height: 1; }
+        .stat-label { font-size: .85rem; color: var(--text-3); margin-top: 12px; font-family: var(--font-mono); letter-spacing: .05em; text-transform: uppercase; }
         
-        footer { background: rgba(10,10,15,0.5); padding: 2rem; text-align: center; border-top: 1px solid var(--border); color: #666; margin-top: 4rem; }
-        footer a { color: var(--gold); text-decoration: none; }
-        
+        .btn-danger { background: var(--red); }
+        .btn-danger:hover { background: #e05c6a; }
+
         @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .container { padding: 2rem 1rem; }
-            .nav-links { gap: 1rem; font-size: 0.9rem; }
+            .container { padding: 40px 20px; }
             .trades-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body class="dark">
-    <nav>
-        <a href="index.html" class="nav-logo">PR</a>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="journal.html" style="color: var(--gold);">Journal</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <button class="theme-toggle" id="themeToggle">🌙</button>
-    </nav>
+<body>
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><polygon points="16,2 30,26 2,26" stroke="#c8a96e" stroke-width="1.5" fill="none"/><line x1="16" y1="10" x2="16" y2="22" stroke="#c8a96e" stroke-width="1"/><line x1="10" y1="22" x2="22" y2="22" stroke="#c8a96e" stroke-width="1"/></svg>
+      <span class="logo-text">PR</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="index.html#markets" class="nav-link">Markets</a></li>
+      <li><a href="index.html#brokers" class="nav-link">Brokers</a></li>
+      <li><a href="journal.html" class="nav-link active">Journal</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle"><span class="theme-icon">◐</span></button>
+    </div>
+  </div>
+</nav>
 
-    <div class="container">
-        <h1>Trading Journal</h1>
-        <p style="font-size: 1.2rem; color: var(--gold); margin-bottom: 2rem;">Live trades, P&L, and analysis — password protected.</p>
+<div class="page-wrapper">
+  <div class="container">
+    <span class="section-tag">JOURNAL</span>
+    <h1>Trading Journal</h1>
+    <p class="page-subtitle">Live trades, P&L, and analysis — password protected.</p>
 
-        <!-- Password Setup/Unlock Section -->
-        <div class="password-section" id="passwordSection">
+    <!-- Password Setup/Unlock Section -->
+    <div class="password-section" id="passwordSection">
+        <div id="setupMode">
             <h3>🔐 Secure Access</h3>
-            <div id="setupMode">
-                <p style="margin-bottom: 1rem; font-size: 0.95rem;">First time? Set a password to access your journal.</p>
-                <div class="form-group">
-                    <label for="setupPassword">Create Password</label>
-                    <input type="password" id="setupPassword" placeholder="Enter password (min 6 chars)">
-                </div>
-                <button onclick="setupPassword()">Set Password</button>
-                <div class="status-msg" id="setupStatus"></div>
+            <p style="margin-bottom: 16px; font-size: .95rem; color: var(--text-2);">First time? Set a password to access your journal.</p>
+            <div class="form-group">
+                <label for="setupPassword">Create Password</label>
+                <input type="password" id="setupPassword" placeholder="Enter password (min 6 chars)">
             </div>
-            
-            <div id="unlockMode" style="display: none;">
-                <p style="margin-bottom: 1rem; font-size: 0.95rem;">Enter password to view journal.</p>
-                <div class="form-group">
-                    <label for="unlockPassword">Password</label>
-                    <input type="password" id="unlockPassword" placeholder="Enter password">
-                </div>
-                <button onclick="unlockJournal()">Unlock Journal</button>
-                <div class="status-msg" id="unlockStatus"></div>
-                <button onclick="resetPassword()" style="background: var(--red); margin-top: 1rem; width: 100%;">Reset Password</button>
+            <button onclick="setupPassword()">Set Password</button>
+            <div class="status-msg" id="setupStatus"></div>
+        </div>
+        
+        <div id="unlockMode" style="display: none;">
+            <h3>🔓 Unlock Journal</h3>
+            <p style="margin-bottom: 16px; font-size: .95rem; color: var(--text-2);">Enter password to view trades and performance.</p>
+            <div class="form-group">
+                <label for="unlockPassword">Password</label>
+                <input type="password" id="unlockPassword" placeholder="Enter password">
+            </div>
+            <button onclick="unlockJournal()">Unlock Journal</button>
+            <div class="status-msg" id="unlockStatus"></div>
+            <button onclick="resetPassword()" class="btn-danger" style="margin-top: 16px; width: 100%;">Reset Password</button>
+        </div>
+    </div>
+
+    <!-- Journal Content (Locked) -->
+    <div class="journal-content" id="journalContent">
+        <button onclick="logout()" class="btn-danger" style="margin-bottom: 32px;">🔓 Logout</button>
+
+        <h2>Performance Overview</h2>
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-value">24</div>
+                <div class="stat-label">Total Trades</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">16</div>
+                <div class="stat-label">Winning Trades</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">66.7%</div>
+                <div class="stat-label">Win Rate</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">+42.5R</div>
+                <div class="stat-label">Total Profit</div>
             </div>
         </div>
-
-        <!-- Journal Content (Locked) -->
-        <div class="journal-content" id="journalContent">
-            <button onclick="logout()" style="background: var(--red); margin-bottom: 2rem;">🔓 Logout</button>
-
-            <h2>Performance Overview</h2>
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <div class="stat-value">24</div>
-                    <div class="stat-label">Total Trades</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value">16</div>
-                    <div class="stat-label">Winning Trades</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value">66.7%</div>
-                    <div class="stat-label">Win Rate</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value">+42.5R</div>
-                    <div class="stat-label">Total Profit</div>
-                </div>
-            </div>
 
             <h2>Recent Trades (Live & Demo)</h2>
             <div class="trades-grid">
@@ -257,13 +247,40 @@
             <p><strong>Discipline over Profit.</strong> Not chasing size. Focused on: consistency, risk management, and structure identification. Quality > Quantity.</p>
         </div>
     </div>
+  </div>
 
-    <footer>
-        <p>&copy; 2025 Parth Ranjan. All rights reserved.</p>
-        <p><a href="index.html">Back to Home</a></p>
-    </footer>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><polygon points="16,2 30,26 2,26" stroke="#c8a96e" stroke-width="1.5" fill="none"/><line x1="16" y1="10" x2="16" y2="22" stroke="#c8a96e" stroke-width="1"/><line x1="10" y1="22" x2="22" y2="22" stroke="#c8a96e" stroke-width="1"/></svg>
+        Parth Ranjan
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#markets">Markets</a>
+        <a href="index.html#brokers">Brokers</a>
+        <a href="contact.html">Contact</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="footer-note">
+        <p>Trading requires discipline, risk management, and a systematic approach. Past performance is not indicative of future results. Trade only with capital you can afford to lose.</p>
+        <p class="footer-copy">&copy; 2026 Parth Ranjan. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</div>
 
-    <script>
+<script src="js/dark-mode.js"></script>
+<script>
+  // Smooth nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  });
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         const savedTheme = localStorage.getItem('theme') || 'dark';
