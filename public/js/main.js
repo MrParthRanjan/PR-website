@@ -2,11 +2,11 @@ console.log('🚀 PR Website - Loaded!');
 
 // Mobile Menu Toggle
 const hamburger = document.getElementById('hamburger');
-const navMenu = document.querySelector('.nav-menu');
+const mobileMenu = document.getElementById('mobileMenu');
 
-if (hamburger) {
+if (hamburger && mobileMenu) {
     hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
+        mobileMenu.classList.toggle('open');
     });
 }
 
@@ -87,3 +87,11 @@ document.querySelectorAll('.feature-card, .service-card, .value-card').forEach(e
 });
 
 console.log('✅ JavaScript initialized!');
+
+// Headline reveal stagger for homepage
+document.addEventListener('DOMContentLoaded', () => {
+    const lines = document.querySelectorAll('.reveal-line');
+    lines.forEach((el, i) => {
+        el.style.animationDelay = `${i * 120}ms`;
+    });
+});

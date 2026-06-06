@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Parth Ranjan — Trader · Strategist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet" />
 <style>
 /* ═══ CSS VARIABLES ═══ */
 :root {
@@ -27,8 +27,8 @@
   --red:        #e05c6a;
   --green-dim:  rgba(78,202,139,0.12);
   --red-dim:    rgba(224,92,106,0.12);
-  --font-display: 'Syne', sans-serif;
-  --font-body:    'DM Sans', sans-serif;
+  --font-display: 'Merriweather', serif;
+  --font-body:    'Inter', sans-serif;
   --font-mono:    'JetBrains Mono', monospace;
   --radius:     8px;
   --radius-lg:  16px;
@@ -96,11 +96,17 @@ a{text-decoration:none;color:inherit;}ul{list-style:none;}
 .tag{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-dim);padding:5px 14px;border-radius:100px;background:var(--gold-glow);}
 .sep{color:var(--text-3);}
 .hero-bio{font-size:1.1rem;color:var(--text-2);line-height:1.7;max-width:480px;margin-bottom:40px;font-weight:300;}
+.hero-lead{font-size:1.45rem;color:var(--text);max-width:720px;margin-bottom:18px;font-weight:500;opacity:0.96}
 .hero-cta{display:flex;gap:16px;flex-wrap:wrap;}
 .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--gold);color:#0a0a0f;font-family:var(--font-mono);font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border-radius:var(--radius);border:1px solid var(--gold);cursor:pointer;transition:all var(--transition);}
-.btn-primary:hover{background:var(--gold-light);border-color:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 32px rgba(200,169,110,.25);}
+.btn-primary{box-shadow: 0 6px 20px rgba(200,169,110,0.08);} 
+.btn-primary:hover{background:var(--gold-light);border-color:var(--gold-light);transform:translateY(-2px);box-shadow:0 12px 40px rgba(200,169,110,.22);} 
+.btn-primary:focus{outline:3px solid rgba(200,169,110,0.12);outline-offset:3px}
 .btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:transparent;color:var(--text-2);font-family:var(--font-mono);font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border-radius:var(--radius);border:1px solid var(--border-2);cursor:pointer;transition:all var(--transition);}
 .btn-ghost:hover{color:var(--text);border-color:var(--text-2);transform:translateY(-2px);}
+
+/* subtle hero accent */
+.hero::before{content:'';position:absolute;inset:auto 0 0 -10%;height:70%;width:70%;background:radial-gradient(closest-side, rgba(200,169,110,0.06), transparent 40%);pointer-events:none;z-index:1;transform:translateX(10%);} 
 .hero-stats{position:absolute;bottom:60px;right:32px;display:flex;align-items:center;background:var(--surface);border:1px solid var(--border-2);border-radius:var(--radius-lg);overflow:hidden;backdrop-filter:blur(20px);z-index:2;}
 .stat-item{padding:20px 28px;text-align:center;min-width:90px;}
 .stat-num{display:block;font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--gold);line-height:1;}
@@ -244,16 +250,16 @@ a{text-decoration:none;color:inherit;}ul{list-style:none;}
  
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="contact.html" class="nav-logo">
+    <a href="index.html" class="nav-logo">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><polygon points="16,2 30,26 2,26" stroke="#c8a96e" stroke-width="1.5" fill="none"/><line x1="16" y1="10" x2="16" y2="22" stroke="#c8a96e" stroke-width="1"/><line x1="10" y1="22" x2="22" y2="22" stroke="#c8a96e" stroke-width="1"/></svg>
       <span class="logo-text">PR</span>
     </a>
     <ul class="nav-links">
-      <li><a href="contact.html" class="nav-link active">Home</a></li>
-      <li><a href="contact.html" class="nav-link">About</a></li>
-      <li><a href="contact.html" class="nav-link">Markets</a></li>
-      <li><a href="contact.html" class="nav-link">Journal</a></li>
-      <li><a href="contact.html" class="nav-link">Brokers</a></li>
+      <li><a href="index.html" class="nav-link active">Home</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="#markets" class="nav-link">Markets</a></li>
+      <li><a href="journal.html" class="nav-link">Journal</a></li>
+      <li><a href="#brokers" class="nav-link">Brokers</a></li>
       <li><a href="contact.html" class="nav-link">Contact</a></li>
     </ul>
     <div class="nav-actions">
@@ -263,10 +269,10 @@ a{text-decoration:none;color:inherit;}ul{list-style:none;}
   </div>
 </nav>
  
-<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu" id="mobileMenu">
   <ul>
-    <li><a href="contact.html">Home</a></li><li><a href="contact.html">About</a></li><li><a href="contact.html">Markets</a></li>
-    <li><a href="contact.html">Journal</a></li><li><a href="contact.html">Brokers</a></li><li><a href="contact.html">Contact</a></li>
+    <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="#markets">Markets</a></li>
+    <li><a href="journal.html">Journal</a></li><li><a href="#brokers">Brokers</a></li><li><a href="contact.html">Contact</a></li>
   </ul>
 </div>
  
@@ -281,6 +287,7 @@ a{text-decoration:none;color:inherit;}ul{list-style:none;}
       <span class="line-wrap"><span class="reveal-line">Parth</span></span>
       <span class="line-wrap"><span class="reveal-line delay-1">Ranjan</span></span>
     </h1>
+    <p class="hero-lead">I trade with rules, record everything, and share honest, post-trade analysis — no hype, just results.</p>
     <div class="hero-subtitle">
       <span class="tag">Trader</span><span class="sep">·</span>
       <span class="tag">Strategist</span><span class="sep">·</span>
@@ -288,8 +295,8 @@ a{text-decoration:none;color:inherit;}ul{list-style:none;}
     </div>
     <p class="hero-bio">Price Action. Markets. Psychology.<br/>4+ years navigating Forex, Gold & Crypto with relentless precision.</p>
     <div class="hero-cta">
-      <a href="contact.html" class="btn-primary">View Journal</a>
-      <a href="contact.html" class="btn-ghost">About Me</a>
+      <a href="journal.html" class="btn-primary">View Journal</a>
+      <a href="about.html" class="btn-ghost">About Me</a>
     </div>
   </div>
   <div class="hero-stats">
@@ -304,7 +311,7 @@ a{text-decoration:none;color:inherit;}ul{list-style:none;}
   <div class="scroll-indicator"><span class="scroll-line"></span><span class="scroll-text">SCROLL</span></div>
 </section>
  
-<section class="section markets-section">
+<section id="markets" class="section markets-section">
   <div class="section-header"><span class="section-tag">01 — MARKETS</span><h2 class="section-title">Where I Trade</h2></div>
   <div class="markets-grid">
     <div class="market-card">
@@ -337,7 +344,7 @@ a{text-decoration:none;color:inherit;}ul{list-style:none;}
   </div>
 </section>
  
-<section class="section journal-section">
+<section id="journal" class="section journal-section">
   <div class="section-header"><span class="section-tag">03 — PERFORMANCE</span><h2 class="section-title">Live Journal</h2><p class="section-desc">Real trades. Real data. Updated regularly.</p></div>
   <div class="journal-preview">
     <div class="journal-card featured">
@@ -367,12 +374,12 @@ a{text-decoration:none;color:inherit;}ul{list-style:none;}
       <div class="jstat"><span class="jstat-num">—</span><span class="jstat-label">Avg R:R</span></div>
       <div class="jstat"><span class="jstat-num">—</span><span class="jstat-label">Total Trades</span></div>
       <div class="jstat-note">Live data coming soon</div>
-      <a href="contact.html" class="btn-primary">Full Journal →</a>
+      <a href="journal.html" class="btn-primary">Full Journal →</a>
     </div>
   </div>
 </section>
  
-<section class="section brokers-section">
+<section id="brokers" class="section brokers-section">
   <div class="section-header"><span class="section-tag">04 — BROKERS</span><h2 class="section-title">Trusted Platforms</h2><p class="section-desc">Platforms I use and recommend. Referral links support this site.</p></div>
   <div class="brokers-grid">
     <div class="broker-card"><div class="broker-logo">EX</div><div class="broker-info"><h3>Exness</h3><p>Primary broker. Ultra-low spreads, fast execution.</p><div class="broker-tags"><span>Forex</span><span>Gold</span><span>Crypto</span></div></div><a href="contact.html" class="broker-link">Open Account →</a></div>
@@ -381,7 +388,7 @@ a{text-decoration:none;color:inherit;}ul{list-style:none;}
   </div>
 </section>
  
-<section class="section socials-section">
+<section id="contact" class="section socials-section">
   <div class="section-header"><span class="section-tag">05 — CONNECT</span><h2 class="section-title">Find Me Here</h2></div>
   <div class="socials-grid">
     <a href="contact.html" class="social-card"><div class="social-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 2C7.373 2 2 7.373 2 14s5.373 12 12 12 12-5.373 12-12S20.627 2 14 2zm5.89 8.24l-2.02 9.53c-.15.67-.54.83-1.08.52l-3-2.21-1.45 1.4c-.16.16-.3.3-.61.3l.21-3.03 5.5-4.97c.24-.21-.05-.33-.37-.12l-6.8 4.28-2.93-.92c-.64-.2-.65-.64.13-.95l11.43-4.41c.53-.19.99.13.99.78-.01.11-.01.18-.01.53z" fill="currentColor"/></svg></div><span class="social-name">Telegram</span><span class="social-handle">Coming Soon</span></a>
@@ -396,7 +403,7 @@ a{text-decoration:none;color:inherit;}ul{list-style:none;}
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand"><svg width="24" height="24" viewBox="0 0 32 32" fill="none"><polygon points="16,2 30,26 2,26" stroke="#c8a96e" stroke-width="1.5" fill="none"/><line x1="16" y1="10" x2="16" y2="22" stroke="#c8a96e" stroke-width="1"/><line x1="10" y1="22" x2="22" y2="22" stroke="#c8a96e" stroke-width="1"/></svg><span>Parth Ranjan</span></div>
-    <div class="footer-links"><a href="contact.html">About</a><a href="contact.html">Journal</a><a href="contact.html">Brokers</a><a href="contact.html">Contact</a></div>
+    <div class="footer-links"><a href="about.html">About</a><a href="journal.html">Journal</a><a href="#brokers">Brokers</a><a href="contact.html">Contact</a></div>
     <div class="footer-note">
       <p>⚠️ Trading involves substantial risk. Past performance is not indicative of future results. Broker links may be referral links.</p>
       <p class="footer-copy">© 2025 Parth Ranjan. All rights reserved.</p>

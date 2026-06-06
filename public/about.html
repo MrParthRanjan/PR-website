@@ -20,7 +20,7 @@
         }
         body.dark { --bg: #0a0a0f; --fg: #f5f5f5; }
         body.light { --bg: #f5f5f5; --fg: #0a0a0f; --border: #e0e0e0; }
-        body { background: var(--bg); color: var(--fg); font-family: 'DM Sans', sans-serif; line-height: 1.6; transition: background 0.3s, color 0.3s; }
+        body { background: var(--bg); color: var(--fg); font-family: var(--font-body); line-height: 1.6; transition: background 0.3s, color 0.3s; }
         
         nav { position: sticky; top: 0; background: rgba(10,10,15,0.8); backdrop-filter: blur(10px); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); z-index: 100; }
         .nav-logo { font-size: 1.5rem; font-weight: bold; color: var(--gold); text-decoration: none; }
@@ -31,8 +31,8 @@
         .theme-toggle:hover { transform: scale(1.2); }
         
         .container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
-        h1 { font-size: 3rem; font-family: 'Syne', sans-serif; margin-bottom: 1rem; color: var(--gold); }
-        h2 { font-size: 2rem; font-family: 'Syne', sans-serif; margin: 3rem 0 1.5rem; color: var(--gold); }
+        h1 { font-size: 3rem; font-family: var(--font-display); margin-bottom: 1rem; color: var(--gold); }
+        h2 { font-size: 2rem; font-family: var(--font-display); margin: 3rem 0 1.5rem; color: var(--gold); }
         p { margin-bottom: 1rem; font-size: 1.1rem; line-height: 1.8; }
         
         .bio-section { background: rgba(200,169,110,0.05); padding: 2rem; border-left: 3px solid var(--gold); margin: 2rem 0; border-radius: 4px; }
@@ -63,8 +63,8 @@
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html" style="color: var(--gold);">About</a></li>
-            <li><a href="#journal">Journal</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="journal.html">Journal</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
         <button class="theme-toggle" id="themeToggle">🌙</button>
     </nav>
@@ -161,112 +161,5 @@
             themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
         });
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - PR Website</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/dark-mode.css">
-</head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <h1>PR Website</h1>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html" class="active">About</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><button id="darkModeToggle" class="dark-mode-btn">🌙</button></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- About Section -->
-    <section class="about-section">
-        <div class="container">
-            <h1>About PR Website</h1>
-            
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>Who We Are</h2>
-                    <p>PR Website is a modern platform designed to help professionals build their online presence. We believe everyone deserves a professional, beautiful website.</p>
-                    <p>Our mission is to make web development accessible to everyone, regardless of technical expertise.</p>
-                </div>
-
-                <div class="about-stats">
-                    <div class="stat">
-                        <h3>1000+</h3>
-                        <p>Happy Customers</p>
-                    </div>
-                    <div class="stat">
-                        <h3>500+</h3>
-                        <p>Projects Completed</p>
-                    </div>
-                    <div class="stat">
-                        <h3>50+</h3>
-                        <p>Team Members</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="our-values">
-                <h2>Our Values</h2>
-                <div class="values-grid">
-                    <div class="value-card">
-                        <h3>Innovation</h3>
-                        <p>We constantly innovate to provide cutting-edge solutions</p>
-                    </div>
-                    <div class="value-card">
-                        <h3>Quality</h3>
-                        <p>Quality is our top priority in everything we do</p>
-                    </div>
-                    <div class="value-card">
-                        <h3>Customer Focus</h3>
-                        <p>Your success is our success</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>PR Website</h3>
-                <p>Your professional online presence</p>
-            </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Follow Us</h4>
-                <div class="social-links">
-                    <a href="#" class="social-link">Twitter</a>
-                    <a href="#" class="social-link">LinkedIn</a>
-                    <a href="#" class="social-link">GitHub</a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 PR Website. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="js/main.js"></script>
-    <script src="js/dark-mode.js"></script>
 </body>
 </html>

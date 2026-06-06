@@ -4,8 +4,8 @@
   "description": "Professional Website - Web Development Project",
   "main": "index.js",
   "scripts": {
-    "start": "http-server public -p 8000",
-    "dev": "http-server public -p 8000",
+    "start": "browser-sync start --server public --files \"public/**/*\" --port 8000 --host 0.0.0.0",
+    "dev": "browser-sync start --server public --files \"public/**/*\" --port 8000 --host 0.0.0.0",
     "build": "echo 'Build script here'",
     "test": "echo 'Tests here'"
   },
@@ -13,6 +13,7 @@
   "author": "MrParthRanjan",
   "license": "MIT",
   "devDependencies": {
+    "browser-sync": "^2.27.11",
     "http-server": "^14.1.1"
   }
 }

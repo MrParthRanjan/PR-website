@@ -23,10 +23,12 @@ cp .env.example .env
 
 ### 4. Run Development Server
 ```bash
-npm start
+npm run dev
 ```
 
 Open browser: `http://localhost:8000`
+
+The server will watch `public/` and reload the page automatically when files change.
 
 ## 📁 Project Structure
 
