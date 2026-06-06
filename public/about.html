@@ -3,6 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Parth Ranjan — Trader, strategist, systems thinker. 4+ years intraday forex & crypto trading.">
+    <meta property="og:title" content="About Parth Ranjan">
+    <meta property="og:description" content="Trading journey, approach, and philosophy.">
+    <meta name="theme-color" content="#0a0a0f">
+    <title>About | Parth Ranjan</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0f;
+            --fg: #f5f5f5;
+            --gold: #c8a96e;
+            --green: #4eca8b;
+            --red: #e05c6a;
+            --border: #1a1a2e;
+        }
+        body.dark { --bg: #0a0a0f; --fg: #f5f5f5; }
+        body.light { --bg: #f5f5f5; --fg: #0a0a0f; --border: #e0e0e0; }
+        body { background: var(--bg); color: var(--fg); font-family: 'DM Sans', sans-serif; line-height: 1.6; transition: background 0.3s, color 0.3s; }
+        
+        nav { position: sticky; top: 0; background: rgba(10,10,15,0.8); backdrop-filter: blur(10px); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); z-index: 100; }
+        .nav-logo { font-size: 1.5rem; font-weight: bold; color: var(--gold); text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--fg); transition: color 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
+        .theme-toggle { background: none; border: none; color: var(--fg); cursor: pointer; font-size: 1.2rem; transition: transform 0.3s; }
+        .theme-toggle:hover { transform: scale(1.2); }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
+        h1 { font-size: 3rem; font-family: 'Syne', sans-serif; margin-bottom: 1rem; color: var(--gold); }
+        h2 { font-size: 2rem; font-family: 'Syne', sans-serif; margin: 3rem 0 1.5rem; color: var(--gold); }
+        p { margin-bottom: 1rem; font-size: 1.1rem; line-height: 1.8; }
+        
+        .bio-section { background: rgba(200,169,110,0.05); padding: 2rem; border-left: 3px solid var(--gold); margin: 2rem 0; border-radius: 4px; }
+        .timeline { margin: 2rem 0; }
+        .timeline-item { padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+        .timeline-item:last-child { border-bottom: none; }
+        .timeline-year { color: var(--gold); font-weight: bold; font-size: 1.1rem; margin-bottom: 0.5rem; }
+        
+        .philosophy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+        .philosophy-card { background: rgba(200,169,110,0.05); padding: 1.5rem; border: 1px solid var(--border); border-radius: 4px; }
+        .philosophy-card strong { color: var(--gold); }
+        
+        footer { background: rgba(10,10,15,0.5); padding: 2rem; text-align: center; border-top: 1px solid var(--border); color: #666; margin-top: 4rem; }
+        footer a { color: var(--gold); text-decoration: none; }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            .container { padding: 2rem 1rem; }
+            .philosophy-grid { grid-template-columns: 1fr; }
+            .nav-links { gap: 1rem; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body class="dark">
+    <nav>
+        <a href="index.html" class="nav-logo">PR</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html" style="color: var(--gold);">About</a></li>
+            <li><a href="#journal">Journal</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle">🌙</button>
+    </nav>
+
+    <div class="container">
+        <h1>About Me</h1>
+        <p style="font-size: 1.3rem; color: var(--gold); margin-bottom: 2rem;">Trader · Strategist · Systems Thinker</p>
+
+        <div class="bio-section">
+            <p><strong>I'm Parth</strong> — a full-time intraday trader with 4+ years in forex, gold, and crypto markets. My edge isn't in complex algorithms or AI predictions. It's in understanding price action, respecting risk, and executing with precision.</p>
+            <p>Everything I trade, I build systems around. Every loss, I analyze ruthlessly. Every win, I reverse-engineer.</p>
+        </div>
+
+        <h2>Core Philosophy</h2>
+        <div class="philosophy-grid">
+            <div class="philosophy-card">
+                <strong>🎯 Price Action First</strong>
+                <p>Charts don't lie. News, sentiment, macro — they all move price. I read what the market is actually doing, not what I think it should do.</p>
+            </div>
+            <div class="philosophy-card">
+                <strong>⏰ Session Precision</strong>
+                <p>Not all hours are equal. London open, NY open — these have personality. I trade when conditions match my edge.</p>
+            </div>
+            <div class="philosophy-card">
+                <strong>🛡️ Risk First, Profit Second</strong>
+                <p>Position sizing isn't boring. It's the only thing that actually compounds wealth. Every trade starts with: "How much am I willing to lose?"</p>
+            </div>
+            <div class="philosophy-card">
+                <strong>⚙️ Systems > Feelings</strong>
+                <p>Emotions are expensive. I build rules, I follow them, I backtest them. The moment I improvise, I lose money.</p>
+            </div>
+        </div>
+
+        <h2>The Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">2020 — Starting Out</div>
+                <p>Learned forex on demo, blew up real account in 3 weeks. Realized I knew nothing. Started reading, studying, failing.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2021 — Finding the Edge</div>
+                <p>Stopped chasing indicators. Went back to basics — support, resistance, structure. Started paper trading seriously. First consistent month.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2022 — Building Systems</div>
+                <p>Started tracking trades obsessively. Built my own Excel journal. Realized psychology was 80% of the game. Focused on execution, not prediction.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2023–2024 — Going Full-Time</div>
+                <p>Scaled account from $5K to consistent monthly income. Added gold and crypto. Built frameworks for different market conditions. Now trade live daily.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2025 — Sharing the Craft</div>
+                <p>Building this site. Not to teach, but to document. Not to sell a course, but to show what real trading looks like — wins, losses, the whole picture.</p>
+            </div>
+        </div>
+
+        <h2>What This Isn't</h2>
+        <p>❌ <strong>Not a guru</strong> — I don't have a "system" to sell.</p>
+        <p>❌ <strong>Not predicting pips</strong> — Nobody can predict the next 100 pips. That's fantasy.</p>
+        <p>❌ <strong>Not saying it's easy</strong> — Trading is hard. Consistent trading is harder.</p>
+
+        <h2>What This Is</h2>
+        <p>✓ <strong>Real trades</strong> — Real P&L, real psychology, no sugar-coating.</p>
+        <p>✓ <strong>A journal</strong> — What works, what doesn't, lessons from both.</p>
+        <p>✓ <strong>For engineers</strong> — If you think systematically, you'll resonate here.</p>
+        <p>✓ <strong>Proof of concept</strong> — Consistent trading is possible. Not easy, but possible.</p>
+
+        <h2>Markets I Trade</h2>
+        <p><strong>Forex:</strong> EURUSD, GBPUSD, USDJPY — session-based, structure-driven</p>
+        <p><strong>Gold (XAU/USD):</strong> Intraday range trading, trend following</p>
+        <p><strong>Crypto:</strong> BTC/USD, ETH/USD — volatility-based, 4-hour to daily</p>
+
+        <h2>Get in Touch</h2>
+        <p>Questions? Ideas? Feedback? Hit me up on <a href="#" style="color: var(--gold);">Telegram</a> or <a href="#" style="color: var(--gold);">Email</a>.</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Parth Ranjan. All rights reserved.</p>
+        <p><a href="index.html">Back to Home</a></p>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        body.classList.add(savedTheme);
+        themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        themeToggle.addEventListener('click', () => {
+            const newTheme = body.classList.contains('dark') ? 'light' : 'dark';
+            body.classList.remove('dark', 'light');
+            body.classList.add(newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - PR Website</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dark-mode.css">
