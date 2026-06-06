@@ -1,112 +1,251 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services - PR Website</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/dark-mode.css">
+    <meta name="description" content="What Parth Ranjan offers — live journal access, market insights, community, and trusted broker referrals.">
+    <meta name="theme-color" content="#0a0a0f">
+    <title>What I Offer | Parth Ranjan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #0a0a0f; --bg-2: #0f0f17; --surface: #1a1a28; --surface-2: #1f1f30;
+            --border: rgba(255,255,255,0.06); --border-2: rgba(255,255,255,0.1);
+            --gold: #c8a96e; --gold-light: #e2c48a; --gold-dim: rgba(200,169,110,0.15); --gold-glow: rgba(200,169,110,0.08);
+            --text: #e8e8f0; --text-2: #9090a8; --text-3: #5a5a72;
+            --green: #4eca8b; --red: #e05c6a;
+            --font-display: 'Merriweather', serif; --font-body: 'Inter', sans-serif; --font-mono: 'JetBrains Mono', monospace;
+            --radius: 8px; --radius-lg: 16px; --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        [data-theme="light"] {
+            --bg: #f5f5f0; --bg-2: #eeeeea; --surface: #ffffff; --surface-2: #f8f8f5;
+            --border: rgba(0,0,0,0.07); --border-2: rgba(0,0,0,0.12);
+            --text: #1a1a2e; --text-2: #4a4a65; --text-3: #8a8aa8;
+            --gold: #8a6a2a; --gold-light: #9a7a3a; --gold-dim: rgba(138,106,42,0.1); --gold-glow: rgba(138,106,42,0.05);
+        }
+        *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body { font-family:var(--font-body); background:var(--bg); color:var(--text); line-height:1.6; overflow-x:hidden; transition:background var(--transition),color var(--transition); }
+        a { text-decoration:none; color:inherit; } ul { list-style:none; }
+
+        /* NAV */
+        .nav { position:fixed; top:0; left:0; right:0; z-index:100; transition:background var(--transition),border-color var(--transition); border-bottom:1px solid transparent; }
+        .nav.scrolled { background:rgba(10,10,15,0.92); backdrop-filter:blur(20px); border-bottom-color:var(--border); }
+        [data-theme="light"] .nav.scrolled { background:rgba(245,245,240,0.92); }
+        .nav-inner { max-width:1280px; margin:0 auto; padding:0 32px; height:72px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+        .nav-logo { display:flex; align-items:center; gap:10px; }
+        .logo-text { font-family:var(--font-display); font-weight:800; font-size:1.2rem; color:var(--gold); letter-spacing:.05em; }
+        .nav-links { display:flex; align-items:center; gap:8px; }
+        .nav-link { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-2); padding:8px 16px; border-radius:var(--radius); transition:color var(--transition),background var(--transition); }
+        .nav-link:hover { color:var(--text); background:var(--border); }
+        .nav-link.active { color:var(--gold); }
+        .nav-actions { display:flex; align-items:center; gap:12px; }
+        .theme-toggle { width:36px; height:36px; border-radius:50%; border:1px solid var(--border-2); background:transparent; color:var(--text-2); cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; transition:all var(--transition); }
+        .theme-toggle:hover { color:var(--gold); border-color:var(--gold); }
+        .hamburger { display:none; flex-direction:column; gap:5px; background:transparent; border:none; cursor:pointer; padding:4px; }
+        .hamburger span { display:block; width:22px; height:1.5px; background:var(--text); transition:all var(--transition); }
+        .hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(4.5px,4.5px); }
+        .hamburger.open span:nth-child(2) { transform:rotate(-45deg) translate(4.5px,-4.5px); }
+        .mobile-menu { position:fixed; inset:0; background:var(--bg); z-index:99; display:flex; align-items:center; justify-content:center; transform:translateX(100%); transition:transform 0.6s cubic-bezier(0.4,0,0.2,1); }
+        .mobile-menu.open { transform:translateX(0); }
+        .mobile-menu ul { display:flex; flex-direction:column; gap:8px; text-align:center; }
+        .mobile-menu a { font-family:var(--font-display); font-size:2.5rem; font-weight:700; color:var(--text-3); transition:color var(--transition); display:block; padding:8px 24px; }
+        .mobile-menu a:hover { color:var(--gold); }
+
+        /* PAGE HEADER */
+        .page-header { padding:160px 32px 80px; max-width:1280px; margin:0 auto; }
+        .page-tag { font-family:var(--font-mono); font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:16px; }
+        .page-title { font-family:var(--font-display); font-size:clamp(3rem,7vw,6rem); font-weight:800; color:var(--text); line-height:1; letter-spacing:-.02em; margin-bottom:20px; }
+        .page-desc { font-size:1.1rem; color:var(--text-2); max-width:540px; font-weight:300; line-height:1.7; }
+
+        /* OFFERINGS GRID */
+        .offerings { padding:0 32px 120px; max-width:1280px; margin:0 auto; }
+        .offerings-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; background:var(--border); border-radius:var(--radius-lg); overflow:hidden; }
+        .offer-card { background:var(--bg); padding:48px 40px; transition:background var(--transition); display:flex; flex-direction:column; gap:20px; }
+        .offer-card:hover { background:var(--surface); }
+        .offer-num { font-family:var(--font-mono); font-size:.68rem; letter-spacing:.2em; color:var(--gold); }
+        .offer-icon { color:var(--gold); opacity:.7; transition:opacity var(--transition); }
+        .offer-card:hover .offer-icon { opacity:1; }
+        .offer-card h3 { font-family:var(--font-display); font-size:1.4rem; font-weight:700; color:var(--text); }
+        .offer-card p { font-size:.95rem; color:var(--text-2); line-height:1.7; font-weight:300; }
+        .offer-tags { display:flex; gap:8px; flex-wrap:wrap; margin-top:auto; }
+        .offer-tag { font-family:var(--font-mono); font-size:.62rem; letter-spacing:.08em; color:var(--gold); border:1px solid var(--gold-dim); padding:3px 10px; border-radius:4px; background:var(--gold-glow); }
+        .offer-link { display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; color:var(--gold); transition:gap var(--transition); margin-top:4px; }
+        .offer-link:hover { gap:12px; }
+
+        /* DISCLAIMER */
+        .disclaimer { padding:0 32px 120px; max-width:1280px; margin:0 auto; }
+        .disclaimer-box { background:var(--surface); border:1px solid var(--border-2); border-radius:var(--radius-lg); padding:32px 40px; }
+        .disclaimer-box p { font-size:.88rem; color:var(--text-3); line-height:1.7; font-weight:300; }
+        .disclaimer-box strong { color:var(--text-2); }
+
+        /* FOOTER */
+        .footer { background:var(--bg); border-top:1px solid var(--border); padding:48px 32px; }
+        .footer-inner { max-width:1280px; margin:0 auto; display:flex; flex-direction:column; gap:32px; }
+        .footer-brand { display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:700; font-size:1rem; color:var(--gold); }
+        .footer-links { display:flex; gap:32px; flex-wrap:wrap; }
+        .footer-links a { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-3); transition:color var(--transition); }
+        .footer-links a:hover { color:var(--gold); }
+        .footer-note { border-top:1px solid var(--border); padding-top:24px; }
+        .footer-note p { font-size:.78rem; color:var(--text-3); line-height:1.7; max-width:680px; font-weight:300; }
+        .footer-copy { margin-top:8px; font-family:var(--font-mono); font-size:.68rem !important; letter-spacing:.08em; color:var(--text-3) !important; }
+
+        /* FADE */
+        .fade-in { opacity:0; transform:translateY(24px); transition:opacity .7s ease,transform .7s ease; }
+        .fade-in.visible { opacity:1; transform:translateY(0); }
+
+        @media(max-width:768px) {
+            .nav-links { display:none; } .hamburger { display:flex; }
+            .page-header { padding:120px 20px 60px; }
+            .offerings { padding:0 20px 80px; }
+            .disclaimer { padding:0 20px 80px; }
+            .offerings-grid { grid-template-columns:1fr; }
+            .offer-card { padding:32px 24px; }
+            .footer-links { gap:20px; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <h1>PR Website</h1>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="services.html" class="active">Services</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><button id="darkModeToggle" class="dark-mode-btn">🌙</button></li>
-            </ul>
+<nav class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><polygon points="16,2 30,26 2,26" stroke="#c8a96e" stroke-width="1.5" fill="none"/><line x1="16" y1="10" x2="16" y2="22" stroke="#c8a96e" stroke-width="1"/><line x1="10" y1="22" x2="22" y2="22" stroke="#c8a96e" stroke-width="1"/></svg>
+            <span class="logo-text">PR</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="index.html#markets" class="nav-link">Markets</a></li>
+            <li><a href="journal.html" class="nav-link">Journal</a></li>
+            <li><a href="index.html#brokers" class="nav-link">Brokers</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="theme-toggle" id="themeToggle"><span class="theme-icon">◐</span></button>
+            <button class="hamburger" id="hamburger"><span></span><span></span></button>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <!-- Services Section -->
-    <section class="services-section">
-        <div class="container">
-            <h1>Our Services</h1>
-            <p class="section-subtitle">Comprehensive solutions for your digital needs</p>
+<div class="mobile-menu" id="mobileMenu">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="journal.html">Journal</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</div>
 
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">🌐</div>
-                    <h3>Web Design</h3>
-                    <p>Beautiful, responsive website designs that convert visitors into customers</p>
-                    <a href="contact.html" class="service-link">Learn More →</a>
-                </div>
+<div class="page-header">
+    <span class="page-tag">What I Offer</span>
+    <h1 class="page-title">The Full Picture</h1>
+    <p class="page-desc">No course. No signal service. Just honest access to how I trade, what I use, and where to find me.</p>
+</div>
 
-                <div class="service-card">
-                    <div class="service-icon">💻</div>
-                    <h3>Web Development</h3>
-                    <p>Custom web applications built with latest technologies and best practices</p>
-                    <a href="contact.html" class="service-link">Learn More →</a>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">📱</div>
-                    <h3>Mobile Apps</h3>
-                    <p>Native and cross-platform mobile applications for iOS and Android</p>
-                    <a href="contact.html" class="service-link">Learn More →</a>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🔍</div>
-                    <h3>SEO Optimization</h3>
-                    <p>Improve your search engine rankings and drive organic traffic</p>
-                    <a href="contact.html" class="service-link">Learn More →</a>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">📊</div>
-                    <h3>Analytics & Reporting</h3>
-                    <p>Data-driven insights to optimize your digital strategy</p>
-                    <a href="contact.html" class="service-link">Learn More →</a>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🛡️</div>
-                    <h3>Security & Support</h3>
-                    <p>24/7 support and enterprise-grade security for your peace of mind</p>
-                    <a href="contact.html" class="service-link">Learn More →</a>
-                </div>
+<div class="offerings">
+    <div class="offerings-grid">
+        <div class="offer-card fade-in">
+            <span class="offer-num">01</span>
+            <div class="offer-icon">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="4" width="28" height="28" rx="3" stroke="currentColor" stroke-width="1.2"/><line x1="10" y1="14" x2="26" y2="14" stroke="currentColor" stroke-width="1.2"/><line x1="10" y1="20" x2="20" y2="20" stroke="currentColor" stroke-width="1.2"/><circle cx="26" cy="24" r="4" stroke="currentColor" stroke-width="1.2"/></svg>
             </div>
+            <h3>Live Trading Journal</h3>
+            <p>Every trade I take — logged, reviewed, and available to read. Real entries, real exits, real P&L. Password-protected to keep it honest and unfiltered.</p>
+            <div class="offer-tags"><span class="offer-tag">XAU/USD</span><span class="offer-tag">Forex</span><span class="offer-tag">Crypto</span></div>
+            <a href="journal.html" class="offer-link">Access Journal →</a>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>PR Website</h3>
-                <p>Your professional online presence</p>
+        <div class="offer-card fade-in">
+            <span class="offer-num">02</span>
+            <div class="offer-icon">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><polyline points="4,28 12,18 18,22 26,10 32,14" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="26" cy="10" r="2.5" fill="currentColor"/></svg>
             </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Follow Us</h4>
-                <div class="social-links">
-                    <a href="#" class="social-link">Twitter</a>
-                    <a href="#" class="social-link">LinkedIn</a>
-                    <a href="#" class="social-link">GitHub</a>
-                </div>
-            </div>
+            <h3>Market Setups & Analysis</h3>
+            <p>Session-based setups shared in the Telegram channel. London open, NY open. Structure, liquidity, order blocks — explained post-trade with screenshots.</p>
+            <div class="offer-tags"><span class="offer-tag">Price Action</span><span class="offer-tag">Post-Trade</span><span class="offer-tag">Free</span></div>
+            <a href="https://t.me/ranjanparth" target="_blank" class="offer-link">Join Telegram →</a>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 PR Website. All rights reserved.</p>
-        </div>
-    </footer>
 
-    <script src="js/main.js"></script>
-    <script src="js/dark-mode.js"></script>
+        <div class="offer-card fade-in">
+            <span class="offer-num">03</span>
+            <div class="offer-icon">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="14" stroke="currentColor" stroke-width="1.2"/><path d="M10 18 Q18 10 26 18 Q18 26 10 18Z" stroke="currentColor" stroke-width="1.2" fill="none"/><line x1="18" y1="4" x2="18" y2="32" stroke="currentColor" stroke-width="1.2"/></svg>
+            </div>
+            <h3>Trusted Broker Referrals</h3>
+            <p>I only recommend brokers I actually use. Exness for Forex & Gold, Delta Exchange for crypto derivatives, XM for multi-asset trading. Referral links support this site.</p>
+            <div class="offer-tags"><span class="offer-tag">Exness</span><span class="offer-tag">Delta</span><span class="offer-tag">XM</span></div>
+            <a href="index.html#brokers" class="offer-link">View Brokers →</a>
+        </div>
+
+        <div class="offer-card fade-in">
+            <span class="offer-num">04</span>
+            <div class="offer-icon">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M30 8.5A18 18 0 0 0 6 8.5c-4.5 5-4.5 13 0 18l-2 5.5 5.5-2c5 4.5 13 4.5 18 0 5-5 5-13 0-18z" stroke="currentColor" stroke-width="1.2" fill="none"/><line x1="12" y1="16" x2="24" y2="16" stroke="currentColor" stroke-width="1"/><line x1="12" y1="21" x2="20" y2="21" stroke="currentColor" stroke-width="1"/></svg>
+            </div>
+            <h3>Community (Discord)</h3>
+            <p>A small, focused community of traders sharing charts, setups, and post-trade analysis. No noise, no pump groups — just structured conversation around real trading.</p>
+            <div class="offer-tags"><span class="offer-tag">Free</span><span class="offer-tag">Active</span><span class="offer-tag">No Signals</span></div>
+            <a href="https://discord.gg/W9f7MzQZhb" target="_blank" class="offer-link">Join Discord →</a>
+        </div>
+    </div>
+</div>
+
+<div class="disclaimer">
+    <div class="disclaimer-box fade-in">
+        <p><strong>What this isn't:</strong> A signal service, a paid course, a guaranteed return system, or financial advice. Trading carries substantial risk and past performance is not indicative of future results. Everything shared here is for educational and documentation purposes only. Make your own decisions, manage your own risk.</p>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><polygon points="16,2 30,26 2,26" stroke="#c8a96e" stroke-width="1.5" fill="none"/><line x1="16" y1="10" x2="16" y2="22" stroke="#c8a96e" stroke-width="1"/><line x1="10" y1="22" x2="22" y2="22" stroke="#c8a96e" stroke-width="1"/></svg>
+            <span>Parth Ranjan</span>
+        </div>
+        <div class="footer-links">
+            <a href="about.html">About</a>
+            <a href="journal.html">Journal</a>
+            <a href="index.html#brokers">Brokers</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-note">
+            <p>⚠️ Trading involves substantial risk. Past performance is not indicative of future results. Broker links may be referral links.</p>
+            <p class="footer-copy">© 2025 Parth Ranjan. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+'use strict';
+const nav = document.getElementById('nav');
+if (nav) window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40), {passive: true});
+
+const hb = document.getElementById('hamburger'), mm = document.getElementById('mobileMenu');
+if (hb && mm) {
+    hb.addEventListener('click', () => {
+        const o = mm.classList.toggle('open');
+        hb.classList.toggle('open', o);
+        document.body.style.overflow = o ? 'hidden' : '';
+    });
+    mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        mm.classList.remove('open'); hb.classList.remove('open'); document.body.style.overflow = '';
+    }));
+}
+
+const tt = document.getElementById('themeToggle'), html = document.documentElement;
+function setTheme(t) {
+    html.setAttribute('data-theme', t);
+    localStorage.setItem('pr-theme', t);
+    if (tt) tt.querySelector('.theme-icon').textContent = t === 'dark' ? '◐' : '◑';
+}
+setTheme(localStorage.getItem('pr-theme') || 'dark');
+if (tt) tt.addEventListener('click', () => setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+
+const obs = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+}), {threshold: .15, rootMargin: '0px 0px -60px 0px'});
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>

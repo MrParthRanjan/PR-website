@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Parth Ranjan — Trader · Strategist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet" />
 <style>
 /* ═══ CSS VARIABLES ═══ */
 :root {
@@ -426,7 +426,7 @@ setTheme(localStorage.getItem('pr-theme')||'dark');
 if(tt)tt.addEventListener('click',()=>setTheme(html.getAttribute('data-theme')==='dark'?'light':'dark'));
 // CANVAS CHART
 const canvas=document.getElementById('chartCanvas');
-if(canvas){const ctx=canvas.getContext('2d');function resize(){canvas.width=canvas.offsetWidth*devicePixelRatio;canvas.height=canvas.offsetHeight*devicePixelRatio;ctx.scale(devicePixelRatio,devicePixelRatio);}resize();window.addEventListener('resize',resize,{passive:true});
+if(canvas){const ctx=canvas.getContext('2d');function resize(){canvas.width=canvas.offsetWidth*devicePixelRatio;canvas.height=canvas.offsetHeight*devicePixelRatio;ctx.scale(devicePixelRatio,devicePixelRatio);}resize();window.addEventListener('resize',()=>{resize();draw();},{passive:true});
 function genData(n){const d=[];let p=2300;for(let i=0;i<n;i++){const c=((Math.random()-.48)*8);p+=c;d.push({open:p,high:p+Math.random()*6,low:p-Math.random()*6,close:p+(Math.random()-.5)*4});p=d[d.length-1].close;}return d;}
 const data=genData(60);
 function draw(){const w=canvas.offsetWidth,h=canvas.offsetHeight;ctx.clearRect(0,0,w,h);const cw=w/data.length*.6,cg=w/data.length;const ps=data.flatMap(d=>[d.high,d.low]),mn=Math.min(...ps),mx=Math.max(...ps),rng=mx-mn,pad=rng*.1;function py(p){return h-((p-mn+pad)/(rng+pad*2))*h;}

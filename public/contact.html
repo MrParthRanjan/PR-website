@@ -6,7 +6,10 @@
     <meta name="description" content="Contact Parth Ranjan — Questions, collaboration, or feedback about trading.">
     <meta name="theme-color" content="#0a0a0f">
     <title>Contact | Parth Ranjan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet" />
     <style>
+        :root { --font-display: 'Merriweather', serif; --font-body: 'Inter', sans-serif; --font-mono: 'JetBrains Mono', monospace; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --bg: #0a0a0f;
@@ -86,10 +89,9 @@
 
         <h2>Quick Links</h2>
         <div class="socials">
-            <a href="https://t.me/YOUR_TELEGRAM" class="social-link" target="_blank">💬 Telegram</a>
-            <a href="https://discord.gg/YOUR_DISCORD" class="social-link" target="_blank">🎮 Discord</a>
-            <a href="https://wa.me/YOUR_WHATSAPP" class="social-link" target="_blank">📱 WhatsApp</a>
-            <a href="https://youtube.com/@YOUR_CHANNEL" class="social-link" target="_blank">▶️ YouTube</a>
+            <a href="https://t.me/ranjanparth" class="social-link" target="_blank">💬 Telegram</a>
+            <a href="https://discord.gg/W9f7MzQZhb" class="social-link" target="_blank">🎮 Discord</a>
+            <a href="https://wa.me/917667563276" class="social-link" target="_blank">📱 WhatsApp</a>
             <a href="mailto:parthranjan2025@gmail.com" class="social-link">📧 Email</a>
         </div>
 
@@ -124,17 +126,17 @@
             </div>
             <div class="contact-method">
                 <h3>💬 Telegram</h3>
-                <p><a href="https://t.me/YOUR_TELEGRAM" target="_blank">@your_telegram_handle</a></p>
+                <p><a href="https://t.me/ranjanparth" target="_blank">@ranjanparth</a></p>
                 <p style="font-size: 0.9rem; color: #999; margin-top: 0.5rem;">Quick questions and updates.</p>
             </div>
             <div class="contact-method">
                 <h3>🎮 Discord</h3>
-                <p><a href="https://discord.gg/YOUR_DISCORD" target="_blank">Join Server</a></p>
+                <p><a href="https://discord.gg/W9f7MzQZhb" target="_blank">Join Server</a></p>
                 <p style="font-size: 0.9rem; color: #999; margin-top: 0.5rem;">Community discussions.</p>
             </div>
             <div class="contact-method">
                 <h3>📱 WhatsApp</h3>
-                <p><a href="https://wa.me/YOUR_WHATSAPP" target="_blank">Message on WhatsApp</a></p>
+                <p><a href="https://wa.me/917667563276" target="_blank">Message on WhatsApp</a></p>
                 <p style="font-size: 0.9rem; color: #999; margin-top: 0.5rem;">Direct messaging.</p>
             </div>
         </div>
@@ -159,14 +161,14 @@
     <script>
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
-        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedTheme = localStorage.getItem('pr-theme') || 'dark';
         body.classList.add(savedTheme);
         themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
         themeToggle.addEventListener('click', () => {
             const newTheme = body.classList.contains('dark') ? 'light' : 'dark';
             body.classList.remove('dark', 'light');
             body.classList.add(newTheme);
-            localStorage.setItem('theme', newTheme);
+            localStorage.setItem('pr-theme', newTheme);
             themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
         });
 

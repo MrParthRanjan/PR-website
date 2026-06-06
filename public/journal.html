@@ -6,8 +6,11 @@
     <meta name="description" content="Parth Ranjan's Trading Journal — Live trades, P&L, and analysis.">
     <meta name="theme-color" content="#0a0a0f">
     <title>Journal | Parth Ranjan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
     <style>
+        :root { --font-display: 'Merriweather', serif; --font-body: 'Inter', sans-serif; --font-mono: 'JetBrains Mono', monospace; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --bg: #0a0a0f;
@@ -266,14 +269,14 @@
     <script>
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
-        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedTheme = localStorage.getItem('pr-theme') || 'dark';
         body.classList.add(savedTheme);
         themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
         themeToggle.addEventListener('click', () => {
             const newTheme = body.classList.contains('dark') ? 'light' : 'dark';
             body.classList.remove('dark', 'light');
             body.classList.add(newTheme);
-            localStorage.setItem('theme', newTheme);
+            localStorage.setItem('pr-theme', newTheme);
             themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
         });
 
