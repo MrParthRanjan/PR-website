@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Privacy Policy for Parth Ranjan Trading Journal — how your data is collected, stored, and protected.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0a0a0f">
+  <title>Privacy Policy | Parth Ranjan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/pages.css">
+  <style>
+    .pp-hero {
+      padding: 120px 0 56px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 56px;
+    }
+    .pp-hero .section-tag { display: inline-block; margin-bottom: 16px; }
+    .pp-hero h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; color: var(--text); margin-bottom: 12px; }
+    .pp-hero .pp-meta { color: var(--text-3); font-size: 0.85rem; font-family: var(--font-mono, monospace); letter-spacing: 0.04em; }
+    .pp-meta span { color: var(--gold); }
+
+    .pp-content { max-width: 720px; }
+    .pp-section { margin-bottom: 48px; }
+    .pp-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pp-section h2 .pp-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      border: 1px solid rgba(200,169,110,0.25);
+      font-size: 0.7rem;
+      font-family: var(--font-mono, monospace);
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .pp-section p { color: var(--text-2); line-height: 1.8; margin-bottom: 12px; font-size: 0.95rem; }
+    .pp-section p:last-child { margin-bottom: 0; }
+    .pp-section ul { margin: 12px 0 12px 0; padding: 0; list-style: none; }
+    .pp-section ul li {
+      color: var(--text-2);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      padding: 6px 0 6px 20px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+    .pp-section ul li:last-child { border-bottom: none; }
+    .pp-section ul li::before {
+      content: '▸';
+      color: var(--gold);
+      font-size: 0.7rem;
+      position: absolute;
+      left: 0;
+      top: 8px;
+    }
+    .pp-section a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+    .pp-section a:hover { color: var(--gold-light); }
+
+    .pp-highlight {
+      background: var(--gold-dim);
+      border: 1px solid rgba(200,169,110,0.2);
+      border-left: 3px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin: 20px 0;
+    }
+    .pp-highlight p { color: var(--text); font-size: 0.9rem; margin: 0; }
+
+    .pp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      margin-top: 20px;
+    }
+    .pp-card-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-3); margin-bottom: 12px; font-family: var(--font-mono, monospace); }
+    .pp-card p { color: var(--text-2); font-size: 0.9rem; line-height: 1.7; margin-bottom: 8px; }
+    .pp-card p:last-child { margin-bottom: 0; }
+    .pp-card a { color: var(--gold); }
+
+    .pp-contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+    @media (max-width: 480px) { .pp-contact-grid { grid-template-columns: 1fr; } }
+    .pp-contact-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .pp-contact-item .label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); font-family: var(--font-mono, monospace); }
+    .pp-contact-item .val { font-size: 0.9rem; color: var(--text); }
+    .pp-contact-item a { color: var(--gold); }
+
+    .pp-toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      margin-bottom: 48px;
+    }
+    .pp-toc-title { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-3); margin-bottom: 14px; font-family: var(--font-mono, monospace); }
+    .pp-toc ol { counter-reset: toc; list-style: none; padding: 0; margin: 0; }
+    .pp-toc ol li { counter-increment: toc; }
+    .pp-toc ol li a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      color: var(--text-2);
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .pp-toc ol li:last-child a { border-bottom: none; }
+    .pp-toc ol li a::before {
+      content: counter(toc, decimal-leading-zero);
+      color: var(--gold);
+      font-family: var(--font-mono, monospace);
+      font-size: 0.72rem;
+      min-width: 22px;
+    }
+    .pp-toc ol li a:hover { color: var(--gold); }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><polygon points="16,2 30,26 2,26" stroke="#c8a96e" stroke-width="1.5" fill="none"/><line x1="16" y1="10" x2="16" y2="22" stroke="#c8a96e" stroke-width="1"/><line x1="10" y1="22" x2="22" y2="22" stroke="#c8a96e" stroke-width="1"/></svg>
+      <span class="logo-text">PR</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="index.html#markets" class="nav-link">Markets</a></li>
+      <li><a href="index.html#brokers" class="nav-link">Brokers</a></li>
+      <li><a href="journal.html" class="nav-link">Journal</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle"><span class="theme-icon">◐</span></button>
+      <button class="hamburger" id="hamburger"><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="journal.html">Journal</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<div class="page-wrapper">
+  <div class="container">
+
+    <div class="pp-hero">
+      <span class="section-tag">LEGAL</span>
+      <h1>Privacy Policy</h1>
+      <p class="pp-meta">Last updated: <span>June 2026</span> &nbsp;·&nbsp; Effective: <span>June 2026</span></p>
+    </div>
+
+    <div class="pp-content">
+
+      <div class="pp-highlight">
+        <p><strong>Plain English first:</strong> We collect only what's needed to run your trading journal. Your trade data is yours alone — we never sell, share, or monetise it. You can delete your account and all data at any time.</p>
+      </div>
+
+      <div class="pp-toc">
+        <div class="pp-toc-title">Table of Contents</div>
+        <ol>
+          <li><a href="#who-we-are">Who We Are</a></li>
+          <li><a href="#data-we-collect">Data We Collect</a></li>
+          <li><a href="#how-we-use">How We Use Your Data</a></li>
+          <li><a href="#data-sharing">Data Sharing &amp; Third Parties</a></li>
+          <li><a href="#data-storage">Storage &amp; Security</a></li>
+          <li><a href="#your-rights">Your Rights</a></li>
+          <li><a href="#cookies">Cookies &amp; Local Storage</a></li>
+          <li><a href="#changes">Changes to This Policy</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ol>
+      </div>
+
+      <div class="pp-section" id="who-we-are">
+        <h2><span class="pp-num">01</span>Who We Are</h2>
+        <p>This website and the Trading Journal application ("Service") are operated by <strong>Parth Ranjan</strong>, an individual. The Service is a personal trading journal platform available at <strong>pr-website-omega.vercel.app</strong> (and any associated domain).</p>
+        <p>For any privacy-related questions, contact us at <a href="mailto:parthranjan2025@gmail.com">parthranjan2025@gmail.com</a>.</p>
+      </div>
+
+      <div class="pp-section" id="data-we-collect">
+        <h2><span class="pp-num">02</span>Data We Collect</h2>
+        <p>We collect only the minimum data needed to provide the Service:</p>
+        <ul>
+          <li><strong>Account data</strong> — email address and encrypted password (handled entirely by Supabase Auth)</li>
+          <li><strong>Profile data</strong> — display name you optionally provide during signup</li>
+          <li><strong>Trade data</strong> — trade entries you log: instrument, date, direction, size, entry/exit prices, result, notes, screenshots</li>
+          <li><strong>Usage data</strong> — basic analytics (page views, errors) collected by Vercel's edge infrastructure — no personally identifying information</li>
+        </ul>
+        <p>We do <strong>not</strong> collect payment information, phone numbers, location data, or any data beyond what you explicitly enter.</p>
+      </div>
+
+      <div class="pp-section" id="how-we-use">
+        <h2><span class="pp-num">03</span>How We Use Your Data</h2>
+        <ul>
+          <li>To authenticate you and maintain your session</li>
+          <li>To display and store your trade journal entries</li>
+          <li>To compute performance analytics (win rate, P&amp;L, drawdown) shown in your dashboard</li>
+          <li>To show anonymised aggregate public stats on the Journal landing page (total trades count only — no individual data)</li>
+          <li>To respond to support requests you initiate</li>
+        </ul>
+        <p>We do not use your data for advertising, profiling, or any purpose beyond operating the Service.</p>
+      </div>
+
+      <div class="pp-section" id="data-sharing">
+        <h2><span class="pp-num">04</span>Data Sharing &amp; Third Parties</h2>
+        <p>We use a minimal set of sub-processors to operate the Service:</p>
+
+        <div class="pp-card">
+          <div class="pp-card-title">Sub-processors</div>
+          <p><strong>Supabase</strong> (supabase.com) — Database, authentication, and file storage. Data is hosted on AWS infrastructure. Supabase is GDPR-compliant. <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Supabase Privacy Policy →</a></p>
+          <p><strong>Vercel</strong> (vercel.com) — Hosting and CDN. Collects minimal edge logs (IP, user-agent). Vercel is GDPR-compliant. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Vercel Privacy Policy →</a></p>
+          <p><strong>Google Fonts</strong> — Font delivery CDN. Minimal request metadata. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy →</a></p>
+        </div>
+
+        <p style="margin-top:16px;">We do <strong>not</strong> sell, rent, or share your personal data with any other third parties. We do not use advertising networks, tracking pixels, or social media SDKs.</p>
+      </div>
+
+      <div class="pp-section" id="data-storage">
+        <h2><span class="pp-num">05</span>Storage &amp; Security</h2>
+        <p>All data is stored in Supabase's cloud database hosted on AWS (us-east-1 region). Access is protected by:</p>
+        <ul>
+          <li>Row Level Security (RLS) — your trade data is only accessible by your authenticated session</li>
+          <li>Encrypted passwords — Supabase Auth never stores plaintext passwords (bcrypt)</li>
+          <li>HTTPS everywhere — all data in transit is TLS-encrypted</li>
+          <li>JWT-based sessions — short-lived access tokens with refresh rotation</li>
+        </ul>
+        <p>While we implement reasonable security measures, no system is 100% secure. Do not store highly sensitive information (e.g., broker API keys, banking credentials) in trade notes.</p>
+      </div>
+
+      <div class="pp-section" id="your-rights">
+        <h2><span class="pp-num">06</span>Your Rights</h2>
+        <p>You have the following rights regarding your data:</p>
+        <ul>
+          <li><strong>Access</strong> — Export your complete trade history from the Journal → Settings tab at any time</li>
+          <li><strong>Correction</strong> — Edit any trade entry directly in the Journal app</li>
+          <li><strong>Deletion</strong> — Delete individual trades or request full account deletion by emailing us</li>
+          <li><strong>Portability</strong> — Export your data as CSV/JSON from the Settings tab</li>
+          <li><strong>Object</strong> — Contact us to opt out of any specific processing</li>
+        </ul>
+        <p>To request account deletion or a full data export, email <a href="mailto:parthranjan2025@gmail.com">parthranjan2025@gmail.com</a> with subject line "Data Request". We will respond within 7 days.</p>
+      </div>
+
+      <div class="pp-section" id="cookies">
+        <h2><span class="pp-num">07</span>Cookies &amp; Local Storage</h2>
+        <p>We use <strong>no third-party tracking cookies</strong>. The Service uses browser storage only for:</p>
+        <ul>
+          <li><code style="color:var(--gold);font-size:0.85em;background:var(--gold-dim);padding:2px 6px;border-radius:4px;">pr-theme</code> — your dark/light theme preference (localStorage)</li>
+          <li><code style="color:var(--gold);font-size:0.85em;background:var(--gold-dim);padding:2px 6px;border-radius:4px;">sb-*</code> — Supabase authentication session tokens (localStorage) — required for login to work</li>
+        </ul>
+        <p>There are no marketing cookies, analytics cookies, or cross-site trackers. Clearing your browser's local storage will log you out.</p>
+      </div>
+
+      <div class="pp-section" id="changes">
+        <h2><span class="pp-num">08</span>Changes to This Policy</h2>
+        <p>If we make material changes to this policy, we will update the "Last updated" date at the top and, if the changes are significant, notify registered users by email.</p>
+        <p>Continued use of the Service after changes take effect constitutes acceptance of the updated policy.</p>
+      </div>
+
+      <div class="pp-section" id="contact">
+        <h2><span class="pp-num">09</span>Contact</h2>
+        <p>For any privacy questions, data requests, or concerns:</p>
+        <div class="pp-contact-grid">
+          <div class="pp-contact-item">
+            <span class="label">Email</span>
+            <span class="val"><a href="mailto:parthranjan2025@gmail.com">parthranjan2025@gmail.com</a></span>
+          </div>
+          <div class="pp-contact-item">
+            <span class="label">Telegram</span>
+            <span class="val"><a href="https://t.me/ranjanparth" target="_blank" rel="noopener">@ranjanparth</a></span>
+          </div>
+          <div class="pp-contact-item">
+            <span class="label">Response time</span>
+            <span class="val">Within 7 business days</span>
+          </div>
+          <div class="pp-contact-item">
+            <span class="label">Jurisdiction</span>
+            <span class="val">India</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /pp-content -->
+  </div><!-- /container -->
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><polygon points="16,2 30,26 2,26" stroke="#c8a96e" stroke-width="1.5" fill="none"/><line x1="16" y1="10" x2="16" y2="22" stroke="#c8a96e" stroke-width="1"/><line x1="10" y1="22" x2="22" y2="22" stroke="#c8a96e" stroke-width="1"/></svg>
+        Parth Ranjan
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#markets">Markets</a>
+        <a href="index.html#brokers">Brokers</a>
+        <a href="journal.html">Journal</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-note">
+        <p>Trading requires discipline, risk management, and a systematic approach. Past performance is not indicative of future results.</p>
+        <p class="footer-copy">&copy; 2026 Parth Ranjan. All rights reserved. &nbsp;·&nbsp; <a href="privacy.html" style="color:var(--gold);">Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+'use strict';
+(function() {
+  const t = localStorage.getItem('pr-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  const btn = document.getElementById('themeToggle');
+  if (btn) btn.querySelector('.theme-icon').textContent = t === 'dark' ? '◐' : '◑';
+})();
+
+(function() {
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 20 ? 'var(--bg)' : '';
+    nav.style.borderColor = window.scrollY > 20 ? 'var(--border)' : 'transparent';
+  }, { passive: true });
+
+  const btn = document.getElementById('themeToggle');
+  if (btn) btn.addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('pr-theme', next);
+    btn.querySelector('.theme-icon').textContent = next === 'dark' ? '◐' : '◑';
+  });
+
+  const ham = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  if (ham && menu) {
+    ham.addEventListener('click', () => {
+      ham.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      ham.classList.remove('open');
+      menu.classList.remove('open');
+    }));
+  }
+})();
+</script>
+</body>
+</html>
