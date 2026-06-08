@@ -27,9 +27,19 @@
     </ul>
     <div class="nav-actions">
       <button class="theme-toggle" id="themeToggle"><span class="theme-icon">◐</span></button>
+      <button class="hamburger" id="hamburger"><span></span><span></span></button>
     </div>
   </div>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="journal.html">Journal</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
 
 <div class="page-wrapper">
   <div class="container">
@@ -40,7 +50,7 @@
     <div class="contact-grid">
       <div class="contact-card">
         <h3>Direct Chat</h3>
-        <p>Prefer real-time conversation? Connect on Telegram or WhatsApp.</p>
+        <p>Prefer real-time conversation? Connect on Telegram or WhatsApp — fastest response during trading hours.</p>
         <div class="socials">
           <a href="https://t.me/ranjanparth" target="_blank" class="social-link">Telegram</a>
           <a href="https://wa.me/917667563276" target="_blank" class="social-link">WhatsApp</a>
@@ -48,25 +58,24 @@
       </div>
 
       <div class="contact-card">
-        <h3>Communities</h3>
-        <p>Join our trading community on Discord to discuss strategies and share insights.</p>
+        <h3>Community</h3>
+        <p>Join the Discord server to discuss setups, strategies, and trade ideas with other members.</p>
         <div class="socials">
-          <a href="https://discord.gg/W9f7MzQZhb" target="_blank" class="social-link">Discord</a>
+          <a href="https://discord.gg/W9f7MzQZhb" target="_blank" class="social-link">Discord Server</a>
         </div>
       </div>
 
       <div class="contact-card">
         <h3>Email</h3>
-        <p>For formal inquiries, reach out via email. I respond within 24 hours.</p>
+        <p>For formal inquiries, partnerships, or detailed discussions. I respond within 24 hours.</p>
         <div class="socials">
-          <a href="mailto:parthranjan2025@gmail.com" class="social-link">Email</a>
+          <a href="mailto:parthranjan2025@gmail.com" class="social-link">parthranjan2025@gmail.com</a>
         </div>
       </div>
 
       <div class="contact-card">
         <h3>Collaboration</h3>
-        <p>Interested in partnership, sponsorship, or content collaboration?</p>
-        <p style="font-size: 0.9rem; color: var(--text-3); margin-top: 12px;">Use the form below or reach out directly on Telegram.</p>
+        <p>Open to partnership, sponsorship, or content collaboration — reach out on Telegram for fastest response.</p>
       </div>
     </div>
 
@@ -76,30 +85,26 @@
         <label for="name">Name</label>
         <input type="text" id="name" name="name" placeholder="Your name" required>
       </div>
-
       <div class="form-group">
         <label for="email">Email</label>
         <input type="email" id="email" name="email" placeholder="your@email.com" required>
       </div>
-
       <div class="form-group">
         <label for="subject">Subject</label>
         <input type="text" id="subject" name="subject" placeholder="What is this about?" required>
       </div>
-
       <div class="form-group">
         <label for="message">Message</label>
         <textarea id="message" name="message" placeholder="Your message..." required></textarea>
       </div>
-
       <button type="submit" class="btn">Send Message</button>
       <div id="formStatus" class="form-status"></div>
     </form>
 
     <div class="info-card">
-      <h3>Quick Response</h3>
-      <p><strong>Telegram/WhatsApp:</strong> Usually reply within minutes during trading hours.</p>
-      <p><strong>Email:</strong> Within 24 hours.</p>
+      <h3>Quick Response Guide</h3>
+      <p><strong>Telegram / WhatsApp:</strong> Usually reply within minutes during trading hours (London & NY sessions).</p>
+      <p><strong>Email:</strong> Within 24 hours, weekdays.</p>
       <p><strong>Discord:</strong> Join the community for instant answers from the group.</p>
     </div>
   </div>
@@ -125,198 +130,58 @@
   </footer>
 </div>
 
-<script src="js/dark-mode.js"></script>
-<script src="js/main.js"></script>
 <script>
-  // Smooth nav scroll effect
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
+'use strict';
+(function() {
+  const t = localStorage.getItem('pr-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  const btn = document.getElementById('themeToggle');
+  if (btn) btn.querySelector('.theme-icon').textContent = t === 'dark' ? '◐' : '◑';
+})();
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 50), {passive: true});
+const tt = document.getElementById('themeToggle');
+if (tt) tt.addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('pr-theme', next);
+  tt.querySelector('.theme-icon').textContent = next === 'dark' ? '◐' : '◑';
+});
+const hb = document.getElementById('hamburger'), mm = document.getElementById('mobileMenu');
+if (hb && mm) {
+  hb.addEventListener('click', () => {
+    const o = mm.classList.toggle('open');
+    hb.classList.toggle('open', o);
+    document.body.style.overflow = o ? 'hidden' : '';
   });
+  mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mm.classList.remove('open'); hb.classList.remove('open'); document.body.style.overflow = '';
+  }));
+}
+
+// Contact form — opens mailto with pre-filled content
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const subject = document.getElementById('subject').value.trim();
+  const message = document.getElementById('message').value.trim();
+  const statusDiv = document.getElementById('formStatus');
+
+  if (!name || !email || !subject || !message) {
+    statusDiv.textContent = 'Please fill in all fields.';
+    statusDiv.className = 'form-status error';
+    return;
+  }
+
+  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+  const mailtoLink = `mailto:parthranjan2025@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+  window.location.href = mailtoLink;
+
+  statusDiv.textContent = 'Opening your email client... Alternatively reach me on Telegram for instant response.';
+  statusDiv.className = 'form-status success';
+  this.reset();
+});
 </script>
-</body>
-</html>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg: #0a0a0f;
-            --fg: #f5f5f5;
-            --gold: #c8a96e;
-            --green: #4eca8b;
-            --red: #e05c6a;
-            --border: #1a1a2e;
-        }
-        body.dark { --bg: #0a0a0f; --fg: #f5f5f5; }
-        body.light { --bg: #f5f5f5; --fg: #0a0a0f; --border: #e0e0e0; }
-        body { background: var(--bg); color: var(--fg); font-family: var(--font-body); line-height: 1.6; transition: background 0.3s, color 0.3s; }
-        
-        nav { position: sticky; top: 0; background: rgba(10,10,15,0.8); backdrop-filter: blur(10px); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); z-index: 100; }
-        .nav-logo { font-size: 1.5rem; font-weight: bold; color: var(--gold); text-decoration: none; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--fg); transition: color 0.3s; }
-        .nav-links a:hover { color: var(--gold); }
-        .theme-toggle { background: none; border: none; color: var(--fg); cursor: pointer; font-size: 1.2rem; transition: transform 0.3s; }
-        .theme-toggle:hover { transform: scale(1.2); }
-        
-        .container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
-        h1 { font-size: 3rem; font-family: var(--font-display); margin-bottom: 1rem; color: var(--gold); }
-        h2 { font-size: 2rem; font-family: 'Syne', sans-serif; margin: 2rem 0 1rem; color: var(--gold); }
-        p { margin-bottom: 1rem; font-size: 1.1rem; line-height: 1.8; }
-        
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin: 3rem 0; }
-        .contact-method { background: rgba(200,169,110,0.05); padding: 2rem; border: 1px solid var(--border); border-radius: 4px; }
-        .contact-method h3 { color: var(--gold); margin-bottom: 0.5rem; }
-        .contact-method a { color: var(--gold); text-decoration: none; font-weight: bold; }
-        .contact-method a:hover { text-decoration: underline; }
-        
-        form { background: rgba(200,169,110,0.05); padding: 2rem; border: 1px solid var(--border); border-radius: 4px; margin: 2rem 0; }
-        .form-group { margin-bottom: 1.5rem; }
-        label { display: block; margin-bottom: 0.5rem; color: var(--gold); font-weight: bold; }
-        input, textarea { width: 100%; padding: 0.75rem; background: rgba(10,10,15,0.5); border: 1px solid var(--border); color: var(--fg); font-family: 'DM Sans', sans-serif; border-radius: 4px; transition: border-color 0.3s; }
-        input:focus, textarea:focus { outline: none; border-color: var(--gold); }
-        textarea { resize: vertical; min-height: 150px; }
-        
-        button { background: var(--gold); color: var(--bg); padding: 0.75rem 2rem; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; transition: background 0.3s; font-size: 1rem; }
-        button:hover { background: #d4b896; }
-        
-        .form-status { margin-top: 1rem; padding: 1rem; border-radius: 4px; display: none; }
-        .form-status.success { background: rgba(78,202,139,0.2); color: var(--green); border: 1px solid var(--green); display: block; }
-        .form-status.error { background: rgba(224,92,106,0.2); color: var(--red); border: 1px solid var(--red); display: block; }
-        
-        .socials { display: flex; gap: 1.5rem; margin: 2rem 0; flex-wrap: wrap; }
-        .social-link { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: rgba(200,169,110,0.1); border: 1px solid var(--border); border-radius: 4px; color: var(--fg); text-decoration: none; transition: all 0.3s; }
-        .social-link:hover { background: rgba(200,169,110,0.2); color: var(--gold); }
-        
-        footer { background: rgba(10,10,15,0.5); padding: 2rem; text-align: center; border-top: 1px solid var(--border); color: #666; margin-top: 4rem; }
-        footer a { color: var(--gold); text-decoration: none; }
-        
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .contact-grid { grid-template-columns: 1fr; }
-            .container { padding: 2rem 1rem; }
-            .nav-links { gap: 1rem; font-size: 0.9rem; }
-        }
-    </style>
-</head>
-<body class="dark">
-    <nav>
-        <a href="index.html" class="nav-logo">PR</a>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="journal.html">Journal</a></li>
-            <li><a href="contact.html" style="color: var(--gold);">Contact</a></li>
-        </ul>
-        <button class="theme-toggle" id="themeToggle">🌙</button>
-    </nav>
-
-    <div class="container">
-        <h1>Get In Touch</h1>
-        <p style="font-size: 1.2rem; color: var(--gold); margin-bottom: 2rem;">Questions? Collaboration? Feedback? Let's connect.</p>
-
-        <h2>Quick Links</h2>
-        <div class="socials">
-            <a href="https://t.me/YOUR_TELEGRAM" class="social-link" target="_blank">💬 Telegram</a>
-            <a href="https://discord.gg/YOUR_DISCORD" class="social-link" target="_blank">🎮 Discord</a>
-            <a href="https://wa.me/YOUR_WHATSAPP" class="social-link" target="_blank">📱 WhatsApp</a>
-            <a href="https://youtube.com/@YOUR_CHANNEL" class="social-link" target="_blank">▶️ YouTube</a>
-            <a href="mailto:parthranjan2025@gmail.com" class="social-link">📧 Email</a>
-        </div>
-
-        <h2>Direct Message</h2>
-        <form id="contactForm">
-            <div class="form-group">
-                <label for="name">Name *</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="subject">Subject *</label>
-                <input type="text" id="subject" name="subject" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Message *</label>
-                <textarea id="message" name="message" required></textarea>
-            </div>
-            <button type="submit">Send Message</button>
-            <div class="form-status" id="formStatus"></div>
-        </form>
-
-        <h2>Other Ways to Connect</h2>
-        <div class="contact-grid">
-            <div class="contact-method">
-                <h3>📧 Email</h3>
-                <p><a href="mailto:parthranjan2025@gmail.com">parthranjan2025@gmail.com</a></p>
-                <p style="font-size: 0.9rem; color: #999; margin-top: 0.5rem;">Best for detailed discussions.</p>
-            </div>
-            <div class="contact-method">
-                <h3>💬 Telegram</h3>
-                <p><a href="https://t.me/YOUR_TELEGRAM" target="_blank">@your_telegram_handle</a></p>
-                <p style="font-size: 0.9rem; color: #999; margin-top: 0.5rem;">Quick questions and updates.</p>
-            </div>
-            <div class="contact-method">
-                <h3>🎮 Discord</h3>
-                <p><a href="https://discord.gg/YOUR_DISCORD" target="_blank">Join Server</a></p>
-                <p style="font-size: 0.9rem; color: #999; margin-top: 0.5rem;">Community discussions.</p>
-            </div>
-            <div class="contact-method">
-                <h3>📱 WhatsApp</h3>
-                <p><a href="https://wa.me/YOUR_WHATSAPP" target="_blank">Message on WhatsApp</a></p>
-                <p style="font-size: 0.9rem; color: #999; margin-top: 0.5rem;">Direct messaging.</p>
-            </div>
-        </div>
-
-        <h2>Response Time</h2>
-        <p>I try to respond to all messages within 24-48 hours. If it's urgent, Telegram or WhatsApp is fastest.</p>
-
-        <h2>Collaboration & Partnerships</h2>
-        <p>Open to:</p>
-        <p>✓ Trading strategy discussions<br>
-        ✓ Technical analysis collaborations<br>
-        ✓ Content partnerships (YouTube, Twitter, blogs)<br>
-        ✓ Broker affiliate programs<br>
-        ✓ Educational content (not courses — real insights)</p>
-    </div>
-
-    <footer>
-        <p>&copy; 2025 Parth Ranjan. All rights reserved.</p>
-        <p><a href="index.html">Back to Home</a></p>
-    </footer>
-
-    <script>
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        body.classList.add(savedTheme);
-        themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-        themeToggle.addEventListener('click', () => {
-            const newTheme = body.classList.contains('dark') ? 'light' : 'dark';
-            body.classList.remove('dark', 'light');
-            body.classList.add(newTheme);
-            localStorage.setItem('theme', newTheme);
-            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-        });
-
-        // Contact form handler (EmailJS integration needed)
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const statusDiv = document.getElementById('formStatus');
-            
-            // EmailJS integration placeholder
-            statusDiv.textContent = '📝 Form ready. EmailJS integration needed to send.';
-            statusDiv.className = 'form-status success';
-            
-            // Clear after 5 seconds
-            setTimeout(() => {
-                statusDiv.className = 'form-status';
-            }, 5000);
-        });
-    </script>
 </body>
 </html>

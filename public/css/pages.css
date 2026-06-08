@@ -591,6 +591,76 @@ footer {
 }
 
 /* ════════════════════════════════════════════════════════════════
+   STATUS MESSAGES
+   ════════════════════════════════════════════════════════════════ */
+
+.status-msg {
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  font-size: .88rem;
+  border: 1px solid transparent;
+  display: none;
+}
+.status-msg.success {
+  background: rgba(78,202,139,0.12);
+  color: var(--green);
+  border-color: rgba(78,202,139,0.2);
+  display: block;
+}
+.status-msg.error {
+  background: rgba(224,92,106,0.12);
+  color: var(--red);
+  border-color: rgba(224,92,106,0.2);
+  display: block;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   HAMBURGER + MOBILE MENU
+   ════════════════════════════════════════════════════════════════ */
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer;
+  padding: 4px;
+  box-shadow: none !important;
+  transform: none !important;
+}
+.hamburger:hover { background: transparent !important; transform: none !important; box-shadow: none !important; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text); transition: all var(--transition); }
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4.5px, 4.5px); }
+.hamburger.open span:nth-child(2) { transform: rotate(-45deg) translate(4.5px, -4.5px); }
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(100%);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mobile-menu.open { transform: translateX(0); }
+.mobile-menu ul { display: flex; flex-direction: column; gap: 8px; text-align: center; list-style: none; }
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text-3);
+  transition: color var(--transition);
+  display: block;
+  padding: 8px 24px;
+  text-decoration: none;
+}
+.mobile-menu a:hover { color: var(--gold); }
+
+/* ════════════════════════════════════════════════════════════════
    RESPONSIVE
    ════════════════════════════════════════════════════════════════ */
 
@@ -598,6 +668,8 @@ footer {
   .nav-inner {
     padding: 0 20px;
   }
+
+  .hamburger { display: flex; }
 
   .nav-links {
     display: none;
