@@ -22,10 +22,16 @@ API_KEY=your_actual_key
 ```
 
 ### 3. API Keys & Tokens
-- 🔑 Store in .env only
-- 🚫 Never hardcode
+- 🔑 Store private secrets (e.g. Supabase `service_role` key) in .env only
+- 🚫 Never hardcode or commit private secrets
 - 🔄 Rotate regularly
 - 🗑️ Revoke old tokens
+
+> **Note on Supabase keys:** The Supabase **anon** key in `public/journal.html`
+> is *public by design* — it is meant to ship in the browser and is safe to
+> commit, **as long as Row Level Security (RLS) is enabled on every table**.
+> This is different from the `service_role` key, which grants full access and
+> must never appear in client code or the repository.
 
 ### 4. Before Each Commit
 ```bash

@@ -15,11 +15,12 @@ cd PR-website
 npm install
 ```
 
-### 3. Setup Environment
-```bash
-cp .env.example .env
-# Edit .env with your values
-```
+### 3. (Optional) Environment
+
+This is a **static site** — no `.env` is required to run or deploy it. The only
+backend is Supabase, and its config (project URL + **public** anon key) lives
+client-side in `public/journal.html`. See `.env.example` for reference. Never put
+the Supabase `service_role` key or any private secret in client code.
 
 ### 4. Run Development Server
 ```bash
@@ -79,7 +80,7 @@ git push
 
 ## 📦 Dependencies
 
-- http-server (for local development)
+- browser-sync (local dev server with live reload; `npm run dev`)
 - See package.json for all dependencies
 
 ## 🔒 Security
